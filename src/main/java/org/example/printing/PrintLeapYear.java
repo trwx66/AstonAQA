@@ -30,7 +30,7 @@ public class PrintLeapYear {
     /**
      * Метод возвращает true если год високосный и false если нет
      */
-    public boolean leapOrNo() {
+    public boolean isLeapOrNo() {
         if (this.year % 400 == 0) {
             return true;
         } else if (this.year % 100 == 0) {
@@ -44,7 +44,7 @@ public class PrintLeapYear {
      * Выводит в консоль год(високосный(true) или нет(false))
      */
     public void printLeapOrNo() {
-        System.out.printf("Год %d високосный? %b\n", year, leapOrNo());
+        System.out.printf("Год %d високосный? %b\n", year, isLeapOrNo());
 
     }
 }
