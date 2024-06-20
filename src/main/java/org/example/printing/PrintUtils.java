@@ -7,7 +7,6 @@
 
 package org.example.printing;
 
-
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -172,7 +171,7 @@ public class PrintUtils {
      * @return одномерный массив длинной len, значения initialValue.
      */
     @NotNull
-    public static int [] arrayCreate(int len, int initialValue) {
+    public static int[] arrayCreate(int len, int initialValue) {
         int[] arrayOne = new int[len];
         Arrays.fill(arrayOne, initialValue);
         return arrayOne;

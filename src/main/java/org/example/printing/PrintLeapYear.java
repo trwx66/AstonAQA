@@ -1,11 +1,13 @@
-package org.example.printing;
-
-import java.time.LocalDate;
 /**
  * @author PavelZgera
  * @version 1.0
  * @since 2024-06-19
  */
+
+package org.example.printing;
+
+import java.time.LocalDate;
+
 public class PrintLeapYear {
     private int year;
 
@@ -37,10 +39,11 @@ public class PrintLeapYear {
             return true;
         } else return false;
     }
+
     /**
      * Выводит в консоль год(високосный(true) или нет(false))
      */
-    public void printLeapOrNo(){
+    public void printLeapOrNo() {
         System.out.printf("Год %d високосный? %b\n", year, leapOrNo());
 
     }

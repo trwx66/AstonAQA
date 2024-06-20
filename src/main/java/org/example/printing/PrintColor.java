@@ -1,12 +1,13 @@
-package org.example.printing;
-
-import java.util.Random;
-
 /**
  * @author PavelZgera
  * @version 1.0
  * @since 2024-06-18
  */
+
+package org.example.printing;
+
+import java.util.Random;
+
 
 public class PrintColor {
     private int value;

@@ -1,5 +1,3 @@
-package org.example.printing;
-
 /**
  * Если конструктор без параметров a и b рандомные (0-10)
  * Поля a и b неизменяемые (final)
@@ -7,6 +5,8 @@ package org.example.printing;
  * @version 1.0
  * @since 2024-06-18
  */
+
+package org.example.printing;
 
 public class CompareNumbers {
     private final int a;
@@ -26,8 +26,8 @@ public class CompareNumbers {
      * Инициализируем 2 числа a и b любым значением. Если a>=b, то выводим a>=b, иначе a < b
      */
     public void compareNumbers() {
-        System.out.printf("a = %d и b = %d\n",a,b);
+        System.out.printf("a = %d и b = %d\n", a, b);
         String result = a >= b ? "a >= b" : "a < b";
-        System.out.println(result+"\n");
+        System.out.println(result + "\n");
     }
 }
