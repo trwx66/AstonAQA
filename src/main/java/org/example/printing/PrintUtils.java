@@ -7,8 +7,6 @@
 
 package org.example.printing;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -170,7 +168,7 @@ public class PrintUtils {
      * @param initialValue значения в массиве.
      * @return одномерный массив длинной len, значения initialValue.
      */
-    @NotNull
+
     public static int[] arrayCreate(int len, int initialValue) {
         int[] arrayOne = new int[len];
         Arrays.fill(arrayOne, initialValue);
