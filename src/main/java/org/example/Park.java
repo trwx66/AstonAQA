@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 public class Park {
 
-    public class Attraction {
+    public static class Attraction {
 
-        private String name;
-        private String workTime;
-        private int price;
+        private final String name;
+        private final String workTime;
+        private final int price;
 
         public Attraction(String name, String workTime, int price) {
             this.name = name;
@@ -35,30 +35,6 @@ public class Park {
                 arr.infoAttraction();
             }
 
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getWorkTime() {
-            return workTime;
-        }
-
-        public void setWorkTime(String workTime) {
-            this.workTime = workTime;
-        }
-
-        public int getPrice() {
-            return price;
-        }
-
-        public void setPrice(int price) {
-            this.price = price;
         }
     }
 }

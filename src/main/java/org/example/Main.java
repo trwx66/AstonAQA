@@ -2,7 +2,7 @@ package org.example;
 
 import java.util.ArrayList;
 
-public class App {
+public class Main {
     public static void main(String[] args) {
 
         Person person1 = new Person("Згера Павел",
@@ -21,11 +21,10 @@ public class App {
                 "Программист", "test4@gmail.com", "+375 44 555-55-51", 250_000, 31);
         person1.printInfoArray(arrayPerson);
 
-        Park park = new Park();
         ArrayList<Park.Attraction> attractionList = new ArrayList<>();
-        attractionList.add(park.new Attraction("Комната смеха", "09:00 - 20:00", 15));
-        attractionList.add(park.new Attraction("Детский поезд", "09:00 - 21:00", 10));
-        Park.Attraction attraction = park.new Attraction("Надувные горки", "010:00 - 21:00", 15);
+        attractionList.add(new Park.Attraction("Комната смеха", "09:00 - 20:00", 15));
+        attractionList.add(new Park.Attraction("Детский поезд", "09:00 - 21:00", 10));
+        Park.Attraction attraction = new Park.Attraction("Надувные горки", "010:00 - 21:00", 15);
         attractionList.add(attraction);
         attraction.infoAttractionList(attractionList);
     }
