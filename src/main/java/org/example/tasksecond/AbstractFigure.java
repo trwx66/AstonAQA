@@ -1,10 +1,10 @@
 package org.example.tasksecond;
 
 public abstract class AbstractFigure implements Calculations {
-    private String fillColor;
-    private String borderColor;
+    private final String fillColor;
+    private final String borderColor;
 
-    public AbstractFigure(String fillColor, String borderColor) {
+    protected AbstractFigure(String fillColor, String borderColor) {
         this.fillColor = fillColor;
         this.borderColor = borderColor;
     }
@@ -15,14 +15,6 @@ public abstract class AbstractFigure implements Calculations {
 
     public String getBorderColor() {
         return borderColor;
-    }
-
-    public void setFillColor(String fillColor) {
-        this.fillColor = fillColor;
-    }
-
-    public void setBorderColor(String borderColor) {
-        this.borderColor = borderColor;
     }
 
     @Override

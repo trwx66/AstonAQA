@@ -1,5 +1,5 @@
 package org.example.taskfirst;
 
-public interface Swimable {
+public interface Swimmable {
     void swim(int length);
 }

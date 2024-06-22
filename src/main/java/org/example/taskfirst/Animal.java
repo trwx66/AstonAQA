@@ -1,10 +1,10 @@
 package org.example.taskfirst;
 
-abstract class Animal implements Runnable, Swimable {
+abstract class Animal implements Runnable, Swimmable {
     private final String name;
     private static int countAnimal = 0;
 
-    public Animal(String name) {
+    protected Animal(String name) {
         this.name = name;
         countAnimal++;
     }

@@ -1,9 +1,9 @@
 package org.example.tasksecond;
 
 public class Triangle extends AbstractFigure {
-    private float side1;
-    private float side2;
-    private float side3;
+    private final float side1;
+    private final float side2;
+    private final float side3;
 
     public Triangle(String fillColor, String borderColor, float side1, float side2, float side3) {
         super(fillColor, borderColor);
