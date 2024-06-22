@@ -12,11 +12,6 @@ public class Triangle extends AbstractFigure {
         this.side3 = side3;
     }
 
-    public Triangle(String fillColor, String borderColor) {
-        super(fillColor, borderColor);
-
-    }
-
     @Override
     public float figureArea() {
         float semiPerimeter = (side1 + side2 + side3) / 2;

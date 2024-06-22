@@ -17,6 +17,14 @@ public abstract class AbstractFigure implements Calculations {
         return borderColor;
     }
 
+    public void setFillColor(String fillColor) {
+        this.fillColor = fillColor;
+    }
+
+    public void setBorderColor(String borderColor) {
+        this.borderColor = borderColor;
+    }
+
     @Override
     public String toString() {
         return " Периметр = " + figureArea() + ", Площадь = "
