@@ -1,4 +1,4 @@
-package org.example;
+package org.example.taskfirst;
 
 public class Bowl {
     private int foodQuantity;

@@ -1,7 +1,7 @@
-package org.example;
+package org.example.taskfirst;
 
 
-public class App {
+public class Main {
     public static void main(String[] args) {
 
         Cat cat1 = new Cat("Том");
@@ -13,10 +13,6 @@ public class App {
                 cat1
         };
 
-        Animal.printCount();
-        Cat.printCount();
-        Dog.printCount();
-
         cat1.run(50);
         cat1.run(201);
         dog1.run(50);
@@ -26,16 +22,15 @@ public class App {
         dog1.swim(2);
         dog1.swim(11);
 
-
         Cat.eat(cats, bowl1, 10);
-
         bowl1.addEat(10);
-
         cat1.infoSatietyCat(cats);
         bowl1.addEat(20);
         cats[2].eat(bowl1, 15);
         cat1.infoSatietyCat();
 
-
+        System.out.println("Всего создано животных: " + Animal.getCountAnimal());
+        System.out.println("Всего создано котов: " + Cat.getCountCat());
+        System.out.println("Всего создано собак: " + Dog.getCountDog() + "\n");
     }
 }

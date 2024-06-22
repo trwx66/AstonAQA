@@ -1,30 +1,30 @@
-package org.example;
+package org.example.taskfirst;
 
 public class Cat extends Animal {
     private static int countCat = 0;
     private static final int RUN_LIMIT = 200;
     private boolean satiety;
 
-    public Cat(String name) {
-        super(name);
+    public Cat(String catName) {
+        super(catName);
         this.satiety = false;
         countCat++;
     }
 
-    public static void printCount() {
-        System.out.println("Всего создано котов: " + countCat + "\n");
+    public static int getCountCat() {
+        return countCat;
     }
 
     @Override
     public void run(int length) {
-        String result = length > RUN_LIMIT ? "Кот " + name + " не может пробежать >200м :(" : "Кот " + name +
+        String result = length > RUN_LIMIT ? "Кот " + getName() + " не может пробежать >200м :(" : "Кот " + getName() +
                 " пробежал(а) " + length + "м";
         System.out.println(result + "\n");
     }
 
     @Override
     public void swim(int length) {
-        System.out.printf("Кот " + name + " не может проплыть %dм, он не умеет плавать\n\n", length);
+        System.out.printf("Кот " + getName() + " не может проплыть %dм, он не умеет плавать\n\n", length);
     }
 
     /**
@@ -34,7 +34,7 @@ public class Cat extends Animal {
         if (bowl.getFoodQuantity() >= foodQuantity && !this.satiety) {
             bowl.deleteEat(foodQuantity);
             this.satiety = true;
-            System.out.print(name + " ест" + " ");
+            System.out.print(getName() + " ест" + " ");
         } else {
             System.out.println("Миска пуста, добавляю 10 вискаса");
             bowl.addEat(10);
@@ -50,9 +50,9 @@ public class Cat extends Animal {
 
     public void infoSatietyCat() {
         if (satiety) {
-            System.out.println("Кот " + name + " наелся :)");
+            System.out.println("Кот " + getName() + " наелся :)");
         } else {
-            System.out.println("Кот " + name + " голоден :(");
+            System.out.println("Кот " + getName() + " голоден :(");
             System.out.println();
         }
     }
@@ -62,4 +62,5 @@ public class Cat extends Animal {
             cat.infoSatietyCat();
         }
     }
+
 }
