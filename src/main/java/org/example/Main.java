@@ -7,7 +7,7 @@ import org.example.printing.PrintUtils;
 
 import java.util.Arrays;
 
-public class App {
+public class Main {
     public static void main(String[] args) {
 
         System.out.println("Задание №1. Печатать три слова: Orange, Banana, Apple");
@@ -22,7 +22,7 @@ public class App {
         System.out.println("Задание №3. Инициализируем value. " +
                 "Если value <= 0 - Красный, если value > 0 и value <= 100 - Жёлтый, иначе Зелёный");
 
-        PrintColor color = new PrintColor(); //random value
+        PrintColor color = new PrintColor(); //конструктор без аргументов = random value
         color.printColor();
         color.setValue(50);
         color.printColor();
@@ -31,11 +31,13 @@ public class App {
 
         System.out.println("Задание №4. Инициализируем 2 числа a и b любым значением." +
                 " Если a>=b, то выводим a>=b, иначе a < b");
-        CompareNumbers numbers = new CompareNumbers();
+        CompareNumbers numbers = new CompareNumbers(); // конструктор без параметров = random числа
         numbers.compareNumbers();
+        CompareNumbers numbers2 = new CompareNumbers(5, 10);
+        numbers2.compareNumbers();
 
         System.out.println("Задание №5. Если сумма 2х целых чисел в диапазоне >= 10 и <= 20 - выводим true, иначе false");
-        System.out.println(PrintUtils.isSumInRange(10, 2) + "\n");
+        System.out.println(PrintUtils.isSumInRange(7, 2) + "\n");
 
         System.out.println("Задание №6. Передать целое число. Если num >= 0 - вывод число положительное," +
                 " иначе число отрицательное.");

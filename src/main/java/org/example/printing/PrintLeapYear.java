@@ -1,9 +1,3 @@
-/**
- * @author PavelZgera
- * @version 1.0
- * @since 2024-06-19
- */
-
 package org.example.printing;
 
 import java.time.LocalDate;
@@ -13,14 +7,6 @@ public class PrintLeapYear {
 
     public PrintLeapYear() {
         this.year = LocalDate.now().getYear(); //текущий год
-    }
-
-    public PrintLeapYear(int year) {
-        this.year = year;
-    }
-
-    public int getYear() {
-        return year;
     }
 
     public void setYear(int year) {
@@ -45,6 +31,5 @@ public class PrintLeapYear {
      */
     public void printLeapOrNo() {
         System.out.printf("Год %d високосный? %b\n", year, isLeapOrNo());
-
     }
 }

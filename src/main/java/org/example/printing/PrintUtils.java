@@ -1,8 +1,5 @@
 /**
  * Утилити класс (содержит static методы), которые не зависят от состояния объекта.
- * @author PavelZgera
- * @version 1.0
- * @since 2024-06-18
  */
 
 package org.example.printing;
@@ -18,7 +15,9 @@ public class PrintUtils {
      */
     public static void printThreeWords() {
         ArrayList<String> fruitList = new ArrayList<>(Arrays.asList("Orange", "Banana", "Apple"));
-        for (String word : fruitList) System.out.println(word);
+        for (String word : fruitList) {
+            System.out.println(word);
+        }
         System.out.println();
     }
 
@@ -84,8 +83,7 @@ public class PrintUtils {
     public static boolean isSumInRange(int num1, int num2) {
         int sum = num1 + num2;
         System.out.printf("num1 = %d; num2 = %d; сумма = %d. Результат : ", num1, num2, sum);
-        boolean result = (sum >= 10) && (sum <= 20) ? true : false;
-        return result;
+        return (sum >= 10) && (sum <= 20);
     }
 
     /**

@@ -1,11 +1,3 @@
-/**
- * Если конструктор без параметров a и b рандомные (0-10)
- * Поля a и b неизменяемые (final)
- * @author PavelZgera
- * @version 1.0
- * @since 2024-06-18
- */
-
 package org.example.printing;
 
 public class CompareNumbers {

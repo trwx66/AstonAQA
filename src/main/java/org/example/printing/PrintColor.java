@@ -1,9 +1,3 @@
-/**
- * @author PavelZgera
- * @version 1.0
- * @since 2024-06-18
- */
-
 package org.example.printing;
 
 import java.util.Random;
@@ -18,10 +12,6 @@ public class PrintColor {
 
     public PrintColor(int value) {
         this.value = value;
-    }
-
-    public int getValue() {
-        return value;
     }
 
     public void setValue(int value) {
