@@ -21,8 +21,7 @@ public class Main {
         ArrayList<Park.Attraction> attractionList = new ArrayList<>();
         attractionList.add(new Park.Attraction("Комната смеха", "09:00 - 20:00", 15));
         attractionList.add(new Park.Attraction("Детский поезд", "09:00 - 21:00", 10));
-        Park.Attraction attraction = new Park.Attraction("Надувные горки", "010:00 - 21:00", 15);
-        attractionList.add(attraction);
-        attraction.infoAttractionList(attractionList);
+        attractionList.add(new Park.Attraction("Детский поезд", "09:00 - 21:00", 10));
+        Park.Attraction.infoAttractionList(attractionList);
     }
 }

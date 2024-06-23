@@ -30,11 +30,10 @@ public class Park {
          * Метод для вывода коллекции с информацией об аттракционах в консоль
          */
 
-        public void infoAttractionList(List<Park.Attraction> attractionList) {
+        public static void infoAttractionList(List<Park.Attraction> attractionList) {
             for (Attraction arr : attractionList) {
                 arr.infoAttraction();
             }
-
         }
     }
 }
