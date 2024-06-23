@@ -7,8 +7,6 @@ public class Main {
         Rectangle rectangle = new Rectangle("Желтый", "Белый", 10f, 20f);
         Triangle triangle = new Triangle("Фиолетовый", "Серый", 3f, 4f, 5f);
 
-        System.out.println(circle);
-        System.out.println(rectangle);
-        System.out.println(triangle);
+        System.out.println(circle + "\n" + rectangle + "\n" + triangle);
     }
 }

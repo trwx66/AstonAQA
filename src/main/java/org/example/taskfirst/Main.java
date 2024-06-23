@@ -7,6 +7,7 @@ public class Main {
         Cat cat1 = new Cat("Том");
         Dog dog1 = new Dog("Бобик");
         Bowl bowl1 = new Bowl(20);
+
         Cat[] cats = {
                 new Cat("Симба"),
                 new Cat("Леопольд"),
@@ -29,8 +30,9 @@ public class Main {
         cats[2].eat(bowl1, 15);
         cat1.infoSatietyCat();
 
-        System.out.println("Всего создано животных: " + Animal.getCountAnimal());
-        System.out.println("Всего создано котов: " + Cat.getCountCat());
-        System.out.println("Всего создано собак: " + Dog.getCountDog() + "\n");
+        System.out.printf("Всего создано животных: %d%n" +
+                        "Всего создано котов: %d%n" +
+                        "Всего создано собак: %d%n%n",
+                Animal.getCountAnimal(), Cat.getCountCat(), Dog.getCountDog());
     }
 }
