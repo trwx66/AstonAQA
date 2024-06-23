@@ -12,16 +12,14 @@ public class Dog extends Animal {
 
     @Override
     public void run(int length) {
-        String result = length > RUN_LIMIT ? "Собака " + getName() + " не может пробежать >200м :(" : "Собака "
-                + getName() + " пробежал(а) " + length + "м";
-        System.out.println(result + "\n");
+        System.out.println(length > RUN_LIMIT ? "Собака " + getName() + " не может пробежать >200м :(" :
+                "Собака " + getName() + " пробежал(а) " + length + "м");
     }
 
     @Override
     public void swim(int length) {
-        String result = length > SWIM_LIMIT ? "Собака " + getName() + " не может проплыть >10м :(" : "Собака "
-                + getName() + " проплыл(а) " + length + "м";
-        System.out.println(result + "\n");
+        System.out.println(length > SWIM_LIMIT ? "Собака " + getName() + " не может проплыть >10м :(\n" :
+                "Собака " + getName() + " проплыл(а) " + length + "м");
     }
 
     public static int getCountDog() {

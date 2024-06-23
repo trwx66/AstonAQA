@@ -17,14 +17,13 @@ public class Cat extends Animal {
 
     @Override
     public void run(int length) {
-        String result = length > RUN_LIMIT ? "Кот " + getName() + " не может пробежать >200м :(" : "Кот " + getName() +
-                " пробежал(а) " + length + "м";
-        System.out.println(result + "\n");
+        System.out.println(length > RUN_LIMIT ? "Кот " + getName() + " не может пробежать >200м :("
+                : "Кот " + getName() + " пробежал(а) " + length + "м");
     }
 
     @Override
     public void swim(int length) {
-        System.out.printf("Кот " + getName() + " не может проплыть %dм, он не умеет плавать%n%n", length);
+        System.out.printf("Кот " + getName() + " не может проплыть %dм, он не умеет плавать%n", length);
     }
 
     /**
@@ -52,8 +51,7 @@ public class Cat extends Animal {
         if (satiety) {
             System.out.println("Кот " + getName() + " наелся :)");
         } else {
-            System.out.println("Кот " + getName() + " голоден :(");
-            System.out.println();
+            System.out.println("Кот " + getName() + " голоден :("+"\n");
         }
     }
 
@@ -62,5 +60,4 @@ public class Cat extends Animal {
             cat.infoSatietyCat();
         }
     }
-
 }

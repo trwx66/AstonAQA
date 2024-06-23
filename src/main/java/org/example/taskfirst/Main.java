@@ -30,7 +30,7 @@ public class Main {
         cats[2].eat(bowl1, 15);
         cat1.infoSatietyCat();
 
-        System.out.printf("Всего создано животных: %d%n" +
+        System.out.printf("%nВсего создано животных: %d%n" +
                         "Всего создано котов: %d%n" +
                         "Всего создано собак: %d%n%n",
                 Animal.getCountAnimal(), Cat.getCountCat(), Dog.getCountDog());
