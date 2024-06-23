@@ -1,6 +1,6 @@
 package org.example;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Park {
 
@@ -30,7 +30,7 @@ public class Park {
          * Метод для вывода коллекции с информацией об аттракционах в консоль
          */
 
-        public void infoAttractionList(ArrayList<Park.Attraction> attractionList) {
+        public void infoAttractionList(List<Park.Attraction> attractionList) {
             for (Attraction arr : attractionList) {
                 arr.infoAttraction();
             }

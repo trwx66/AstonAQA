@@ -33,7 +33,7 @@ public class Person {
     /**
      * Метод для вывода массива с информацией о сотрудниках в консоль
      */
-    public void printInfoArray(Person[] personArr) {
+    public static void printInfoArray(Person[] personArr) {
         for (Person arr : personArr) {
             arr.printInfo();
         }
