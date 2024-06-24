@@ -20,10 +20,8 @@ public class Park {
          * Метод для вывода информации об объекте в консоль
          */
         public void infoAttraction() {
-            System.out.println("Аттракцион: " + name);
-            System.out.println("Время работы: " + workTime);
-            System.out.println("Стоимость: " + price);
-            System.out.println();
+            System.out.printf("Аттракцион: %s%nВремя работы: %s%nСтоимость: %d%n%n",
+                    name, workTime, price);
         }
 
         /**
