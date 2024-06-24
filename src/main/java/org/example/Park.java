@@ -16,11 +16,10 @@ public class Park {
             this.price = price;
         }
 
-        /**
-         * Метод для вывода информации об объекте в консоль
-         */
-        public void infoAttraction() {
-            System.out.printf("Аттракцион: %s%nВремя работы: %s%nСтоимость: %d%n%n",
+        @Override
+        public String toString() {
+            return String.format(
+                    "Аттракцион: %s%nВремя работы: %s%nСтоимость: %d%n",
                     name, workTime, price);
         }
 
@@ -30,7 +29,7 @@ public class Park {
 
         public static void infoAttractionList(List<Park.Attraction> attractionList) {
             for (Attraction arr : attractionList) {
-                arr.infoAttraction();
+                System.out.println(arr);
             }
         }
     }

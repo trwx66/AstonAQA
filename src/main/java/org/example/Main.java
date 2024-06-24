@@ -7,7 +7,6 @@ public class Main {
 
         Person person1 = new Person("Згера Павел",
                 "Инженер", "test@gmail.com", "+375 44 555-55-55", 150_000, 32);
-        person1.printInfo();
 
         Person[] arrayPerson = {
                 person1,
@@ -21,7 +20,7 @@ public class Main {
         ArrayList<Park.Attraction> attractionList = new ArrayList<>();
         attractionList.add(new Park.Attraction("Комната смеха", "09:00 - 20:00", 15));
         attractionList.add(new Park.Attraction("Детский поезд", "09:00 - 21:00", 10));
-        attractionList.add(new Park.Attraction("Детский поезд", "09:00 - 21:00", 10));
+        attractionList.add(new Park.Attraction("Колесо обозрения", "09:00 - 20:30", 7));
         Park.Attraction.infoAttractionList(attractionList);
     }
 }

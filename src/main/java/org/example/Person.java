@@ -17,12 +17,10 @@ public class Person {
         this.age = age;
     }
 
-    /**
-     * Метод для вывода информации об объекте в консоль
-     */
-    public void printInfo() {
-        System.out.printf(
-                "ФИО: %s%nДолжность: %s%nEmail: %s%nТелефон: %s%nЗарплата: %d%nВозраст: %d%n%n",
+    @Override
+    public String toString() {
+        return String.format(
+                "ФИО: %s%nДолжность: %s%nEmail: %s%nТелефон: %s%nЗарплата: %d%nВозраст: %d%n",
                 fullName, position, email, phone, salary, age
         );
     }
@@ -32,7 +30,7 @@ public class Person {
      */
     public static void printInfoArray(Person[] personArr) {
         for (Person arr : personArr) {
-            arr.printInfo();
+            System.out.println(arr);
         }
     }
 }
