@@ -20,7 +20,7 @@ public class Person {
     @Override
     public String toString() {
         return String.format(
-                "ФИО: %s%nДолжность: %s%nEmail: %s%nТелефон: %s%nЗарплата: %.2f%nВозраст: %d%n",
+                "ФИО: %s%nДолжность: %s%nEmail: %s%nТелефон: %s%nЗарплата: %.2f RUB%nВозраст: %d%n",
                 fullName, position, email, phone, salary, age
         );
     }

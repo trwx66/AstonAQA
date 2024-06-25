@@ -21,7 +21,7 @@ public class Park {
         @Override
         public String toString() {
             return String.format(
-                    "Аттракцион: %s%nВремя работы: %s%nСтоимость: %.2f%n",
+                    "Аттракцион: %s%nВремя работы: %s%nСтоимость: %.2f BYN%n",
                     name, workTime, price);
         }
     }
