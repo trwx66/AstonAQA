@@ -1,5 +1,6 @@
 package org.example;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,9 +10,9 @@ public class Park {
 
         private final String name;
         private final String workTime;
-        private final int price;
+        private final BigDecimal price;
 
-        public Attraction(String name, String workTime, int price) {
+        public Attraction(String name, String workTime, BigDecimal price) {
             this.name = name;
             this.workTime = workTime;
             this.price = price;
@@ -20,7 +21,7 @@ public class Park {
         @Override
         public String toString() {
             return String.format(
-                    "Аттракцион: %s%nВремя работы: %s%nСтоимость: %d%n",
+                    "Аттракцион: %s%nВремя работы: %s%nСтоимость: %f%n",
                     name, workTime, price);
         }
     }
@@ -36,7 +37,7 @@ public class Park {
      * Метод для добавления аттракционов в коллекцию
      */
 
-    public void addAttraction(String name, String workTime, int price) {
+    public void addAttraction(String name, String workTime, BigDecimal price) {
         Attraction attraction = new Attraction(name, workTime, price);
         attractions.add(attraction);
     }

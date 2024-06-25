@@ -1,5 +1,7 @@
 package org.example;
 
+import java.math.BigDecimal;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -21,9 +23,9 @@ public class Main {
 
         Park park = new Park();
 
-        park.addAttraction("Комната смеха", "09:00 - 20:00", 15);
-        park.addAttraction("Детский поезд", "09:00 - 21:00", 10);
-        park.addAttraction("Колесо обозрения", "09:00 - 20:30", 7);
+        park.addAttraction("Комната смеха", "09:00 - 20:00", new BigDecimal("15"));
+        park.addAttraction("Детский поезд", "09:00 - 21:00", new BigDecimal("24.5"));
+        park.addAttraction("Колесо обозрения", "09:00 - 20:30", new BigDecimal("16.5"));
 
         park.infoAttractionList();
     }
