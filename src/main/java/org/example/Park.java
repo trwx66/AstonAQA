@@ -21,7 +21,7 @@ public class Park {
         @Override
         public String toString() {
             return String.format(
-                    "Аттракцион: %s%nВремя работы: %s%nСтоимость: %f%n",
+                    "Аттракцион: %s%nВремя работы: %s%nСтоимость: %.2f%n",
                     name, workTime, price);
         }
     }
@@ -31,7 +31,6 @@ public class Park {
     public Park() {
         this.attractions = new ArrayList<>();
     }
-
 
     /**
      * Метод для добавления аттракционов в коллекцию

@@ -5,10 +5,10 @@ public class Person {
     private final String position;
     private final String email;
     private final String phone;
-    private final int salary;
+    private final float salary;
     private final int age;
 
-    public Person(String fullName, String position, String email, String phone, int salary, int age) {
+    public Person(String fullName, String position, String email, String phone, float salary, int age) {
         this.fullName = fullName;
         this.position = position;
         this.email = email;
@@ -20,7 +20,7 @@ public class Person {
     @Override
     public String toString() {
         return String.format(
-                "ФИО: %s%nДолжность: %s%nEmail: %s%nТелефон: %s%nЗарплата: %d%nВозраст: %d%n",
+                "ФИО: %s%nДолжность: %s%nEmail: %s%nТелефон: %s%nЗарплата: %.2f%nВозраст: %d%n",
                 fullName, position, email, phone, salary, age
         );
     }
