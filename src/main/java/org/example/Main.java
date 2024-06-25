@@ -1,9 +1,9 @@
 package org.example;
 
-import java.util.ArrayList;
-
 public class Main {
     public static void main(String[] args) {
+
+        System.out.println("Задание №1-2");
 
         Person person1 = new Person("Згера Павел",
                 "Инженер", "test@gmail.com", "+375 44 555-55-55", 150_000, 32);
@@ -17,10 +17,14 @@ public class Main {
         };
         Person.printInfoArray(arrayPerson);
 
-        ArrayList<Park.Attraction> attractionList = new ArrayList<>();
-        attractionList.add(new Park.Attraction("Комната смеха", "09:00 - 20:00", 15));
-        attractionList.add(new Park.Attraction("Детский поезд", "09:00 - 21:00", 10));
-        attractionList.add(new Park.Attraction("Колесо обозрения", "09:00 - 20:30", 7));
-        Park.Attraction.infoAttractionList(attractionList);
+        System.out.println("Задание №3");
+
+        Park park = new Park();
+
+        park.addAttraction("Комната смеха", "09:00 - 20:00", 15);
+        park.addAttraction("Детский поезд", "09:00 - 21:00", 10);
+        park.addAttraction("Колесо обозрения", "09:00 - 20:30", 7);
+
+        park.infoAttractionList();
     }
 }

@@ -1,10 +1,11 @@
 package org.example;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Park {
 
-    public static class Attraction {
+    private static class Attraction {
 
         private final String name;
         private final String workTime;
@@ -22,15 +23,32 @@ public class Park {
                     "Аттракцион: %s%nВремя работы: %s%nСтоимость: %d%n",
                     name, workTime, price);
         }
+    }
 
-        /**
-         * Метод для вывода коллекции с информацией об аттракционах в консоль
-         */
+    private final List<Attraction> attractions;
 
-        public static void infoAttractionList(List<Park.Attraction> attractionList) {
-            for (Attraction arr : attractionList) {
-                System.out.println(arr);
-            }
+    public Park() {
+        this.attractions = new ArrayList<>();
+    }
+
+
+    /**
+     * Метод для добавления аттракционов в коллекцию
+     */
+
+    public void addAttraction(String name, String workTime, int price) {
+        Attraction attraction = new Attraction(name, workTime, price);
+        attractions.add(attraction);
+    }
+
+    /**
+     * Метод для вывода коллекции с информацией об аттракционах в консоль
+     */
+
+    public void infoAttractionList() {
+        for (Attraction attraction : attractions) {
+            System.out.println(attraction);
         }
     }
 }
+
