@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 public class Main {
     public static void main(String[] args) {
 
-        System.out.println("Задание №1-2");
+        System.out.println("Задание №1-2\n");
 
         Person person1 = new Person("Згера Павел",
                 "Инженер", "test@gmail.com", "+375 44 555-55-55", 150_000, 32);
@@ -19,7 +19,7 @@ public class Main {
         };
         Person.printInfoArray(arrayPerson);
 
-        System.out.println("Задание №3");
+        System.out.println("Задание №3\n");
 
         Park park = new Park();
 
