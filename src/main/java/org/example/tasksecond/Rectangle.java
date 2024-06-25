@@ -16,12 +16,9 @@ public class Rectangle extends AbstractFigure {
     }
 
     @Override
-    public float figurePerimeter() {
-        return 2 * (side1 + side2);
-    }
-
-    @Override
     public String toString() {
-        return "Rectangle:" + super.toString();
+        return "Rectangle: " +
+                "Периметр = " + super.rectanglePerimeter(side1, side2) +
+                super.toString();
     }
 }

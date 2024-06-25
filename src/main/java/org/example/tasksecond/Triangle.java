@@ -20,12 +20,9 @@ public class Triangle extends AbstractFigure {
     }
 
     @Override
-    public float figurePerimeter() {
-        return side1 + side2 + side3;
-    }
-
-    @Override
     public String toString() {
-        return "Triangle :" + super.toString();
+        return "Triangle: " +
+                "Периметр = " + super.trianglePerimeter(side1, side2, side3) +
+                super.toString();
     }
 }

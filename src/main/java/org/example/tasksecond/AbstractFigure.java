@@ -19,7 +19,8 @@ public abstract class AbstractFigure implements Calculations {
 
     @Override
     public String toString() {
-        return " Периметр = " + figureArea() + ", Площадь = "
-                + figurePerimeter() + ", Цвет фона: " + getFillColor() + ", Цвет границ: " + getBorderColor() + ".";
+        return  ", Площадь = " + figureArea() +
+                ", Цвет границ = " + getBorderColor() +
+                ", Цвет фона = " + getFillColor();
     }
 }
