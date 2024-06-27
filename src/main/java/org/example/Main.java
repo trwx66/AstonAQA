@@ -1,8 +1,17 @@
-package org.example.taskfirst;
+package org.example;
 
+import org.example.taskfirst.Animal;
+import org.example.taskfirst.Bowl;
+import org.example.taskfirst.Cat;
+import org.example.taskfirst.Dog;
+import org.example.tasksecond.Circle;
+import org.example.tasksecond.Rectangle;
+import org.example.tasksecond.Triangle;
 
 public class Main {
     public static void main(String[] args) {
+
+        System.out.println("Задание №1\n");
 
         Cat cat1 = new Cat("Том");
         Dog dog1 = new Dog("Бобик");
@@ -34,5 +43,13 @@ public class Main {
                         "Всего создано котов: %d%n" +
                         "Всего создано собак: %d%n%n",
                 Animal.getCountAnimal(), Cat.getCountCat(), Dog.getCountDog());
+
+        System.out.println("Задание №2\n");
+
+        Circle circle = new Circle("Красный", "Синий", 14.2f);
+        Rectangle rectangle = new Rectangle("Желтый", "Белый", 10f, 20f);
+        Triangle triangle = new Triangle("Фиолетовый", "Серый", 3f, 4f, 5f);
+
+        System.out.println(circle + "\n" + rectangle + "\n" + triangle);
     }
 }

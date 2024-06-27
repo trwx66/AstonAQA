@@ -1,6 +1,6 @@
 package org.example.taskfirst;
 
-abstract class Animal implements Runnable, Swimmable {
+public abstract class Animal implements Runnable, Swimmable {
     private final String name;
     private static int countAnimal = 0;
 
