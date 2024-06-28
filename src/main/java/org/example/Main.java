@@ -5,9 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-/**
- *
- */
 public class Main {
 
     public static void main(String[] args) {
@@ -32,8 +29,15 @@ public class Main {
             System.out.printf("Слово \"%s\" повторяется %d раз \n", entry.getKey(), entry.getValue());
         }
 
-        System.out.println("Задание №2\n");
+        System.out.println("\nЗадание №2\n");
+        PhoneBook phoneBook = new PhoneBook();
+        phoneBook.add("Пупкин", "375 44 123 12 12");
+        phoneBook.add("Пупкин", "375 29 123 23 23");
+        phoneBook.add("Ефимова", "375 29 999 88 77");
 
+        System.out.println(phoneBook.get("Пупкин"));
+        System.out.println(phoneBook.get("Смирнов"));
+        System.out.println(phoneBook.get("Ефимова"));
     }
 }
 
