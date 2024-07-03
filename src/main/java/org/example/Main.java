@@ -26,7 +26,7 @@ public class Main {
         System.out.println("Список уникальных слов " + uniqueWords + "\n");
 
         for (Map.Entry<String, Integer> entry : uniqueWordsCounter.entrySet()) {
-            System.out.printf("Слово \"%s\" повторяется %d раз \n", entry.getKey(), entry.getValue());
+            System.out.printf("Слово \"%s\" повторяется %d раз(а) \n", entry.getKey(), entry.getValue());
         }
 
         System.out.println("\nЗадание №2\n");

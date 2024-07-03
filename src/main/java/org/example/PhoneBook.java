@@ -31,7 +31,6 @@ public class PhoneBook {
             System.out.println("По данной фамилии в базе нет номеров");
             return new ArrayList<>();
         }
-
     }
 }
 
