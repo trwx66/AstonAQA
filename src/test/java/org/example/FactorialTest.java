@@ -33,25 +33,25 @@ class FactorialTest {
     void testFactorial() {
         assertAll("Тесты факториала",
                 () -> {
-                    System.out.println("Факториал 0 = " + factorial.calc(0));
-                    assertEquals(BigInteger.ONE, factorial.calc(0), "Факториал 0");
+                    System.out.println("Факториал 0 = " + factorial.getFactorial(0));
+                    assertEquals(BigInteger.ONE, factorial.getFactorial(0), "Факториал 0");
                 },
                 () ->
                 {
-                    System.out.println("Факториал 1 = " + factorial.calc(1));
-                    assertEquals(BigInteger.ONE, factorial.calc(1), "Факториал 1");
+                    System.out.println("Факториал 1 = " + factorial.getFactorial(1));
+                    assertEquals(BigInteger.ONE, factorial.getFactorial(1), "Факториал 1");
 
                 },
                 () -> {
-                    System.out.println("Факториал 5 = " + factorial.calc(5));
-                    assertEquals(BigInteger.valueOf(120), factorial.calc(5), "Факториал 5");
+                    System.out.println("Факториал 5 = " + factorial.getFactorial(5));
+                    assertEquals(BigInteger.valueOf(120), factorial.getFactorial(5), "Факториал 5");
                 },
                 () -> {
-                    System.out.println("Факториал 20 = " + factorial.calc(20));
-                    assertEquals(new BigInteger("2432902008176640000"), factorial.calc(20), "Факториал 20");
+                    System.out.println("Факториал 20 = " + factorial.getFactorial(20));
+                    assertEquals(new BigInteger("2432902008176640000"), factorial.getFactorial(20), "Факториал 20");
                 },
-                // если в методе calc(int n) не бросить исключение IllegalArgumentException при n<0 (например сделать return BigInteger.ONE), тест не пройдёт
-                () -> assertThrows(IllegalArgumentException.class, () -> factorial.calc(-1), "Факториал -1")
+                // если в методе getFactorial(int n) не бросить исключение IllegalArgumentException при n<0 (например сделать return BigInteger.ONE), тест не пройдёт
+                () -> assertThrows(IllegalArgumentException.class, () -> factorial.getFactorial(-1), "Факториал -1")
         );
     }
 }
