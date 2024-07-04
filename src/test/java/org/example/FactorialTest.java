@@ -50,7 +50,7 @@ class FactorialTest {
                     System.out.println("Факториал 20 = " + factorial.calc(20));
                     assertEquals(new BigInteger("2432902008176640000"), factorial.calc(20), "Факториал 20");
                 },
-                // если в методе calc(int n) не бросить исключение IllegalArgumentException (например сделать return BigInteger.ONE), тест не пройдёт
+                // если в методе calc(int n) не бросить исключение IllegalArgumentException при n<0 (например сделать return BigInteger.ONE), тест не пройдёт
                 () -> assertThrows(IllegalArgumentException.class, () -> factorial.calc(-1), "Факториал -1")
         );
     }
