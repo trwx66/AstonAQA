@@ -31,7 +31,7 @@ class FactorialTest {
     void testFactorial() {
         assertAll("Тесты факториала",
                 () -> {
-                    System.out.println("Факториал 0 = " + factorial.getFactorial(0));
+                    System.out.println("Факториал 0 =" + factorial.getFactorial(0));
                     assertEquals(BigInteger.ONE, factorial.getFactorial(0), "Факториал 0");
                 },
                 () ->
