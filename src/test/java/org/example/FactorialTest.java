@@ -1,9 +1,7 @@
 package org.example;
 
 import org.junit.jupiter.api.*;
-
 import java.math.BigInteger;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class FactorialTest {
@@ -50,7 +48,6 @@ class FactorialTest {
                     System.out.println("Факториал 20 = " + factorial.getFactorial(20));
                     assertEquals(new BigInteger("2432902008176640000"), factorial.getFactorial(20), "Факториал 20");
                 },
-                // если в методе getFactorial(int n) не бросить исключение IllegalArgumentException при n<0 (например сделать return BigInteger.ONE), тест не пройдёт
                 () -> assertThrows(IllegalArgumentException.class, () -> factorial.getFactorial(-1), "Факториал -1")
         );
     }
