@@ -1,6 +1,5 @@
 package org.example.pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -10,6 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class HomePage {
     private final WebDriverWait wait;
@@ -34,6 +34,9 @@ public class HomePage {
     @FindBy(xpath = "//button[@class='select__header']")
     private WebElement servicesDropdown;
 
+    @FindBy(xpath = "//p[text()='Услуги связи']")
+    private WebElement communicationServices;
+
     @FindBy(xpath = "//input[@placeholder='Номер телефона']")
     private WebElement phoneInput;
 
@@ -49,11 +52,9 @@ public class HomePage {
     @FindBy(xpath = "//iframe[@class='bepaid-iframe']")
     private WebElement iframe;
 
-    @FindBy(xpath = "(//div[@class='pay-description__cost']//span)[1]")
-    private WebElement iframeDescriptionCost;
 
-    @FindBy(xpath = "//div[@class='pay-description__text']//span")
-    private WebElement iframeDescriptionText;
+    @FindBy(xpath = "//div [@class='payment-page__order-description pay-description']")
+    private WebElement iframeDescription;
 
     public void acceptCookies() {
         wait.until(ExpectedConditions.elementToBeClickable(acceptCookiesButton));
@@ -79,14 +80,14 @@ public class HomePage {
     public boolean fillFormAndSubmit(String phone, String amount, String email) {
         wait.until(ExpectedConditions.visibilityOf(phoneInput));
         servicesDropdown.click();
-        servicesDropdown.findElement(By.xpath("//p[text()='Услуги связи']")).click();
+        communicationServices.click();
         phoneInput.sendKeys(phone);
         amountInput.sendKeys(amount);
         emailInput.sendKeys(email);
         continueButton.click();
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(iframe));
-        String actual = iframeDescriptionCost.getAttribute("innerText") + "\n".
-                concat((iframeDescriptionText.getAttribute("innerText")));
+        String actual = wait.until(ExpectedConditions.visibilityOfAllElements(iframeDescription)).
+                stream().map(WebElement::getText).collect(Collectors.joining("\n"));
         String expected = amount.concat(".00 BYN\n")
                 .concat("Оплата: Услуги связи Номер:375").concat(phone);
         return expected.equals(actual);

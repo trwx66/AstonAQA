@@ -38,31 +38,4 @@
             <version>2.14.1</version>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>3.7.1</version>
-                <executions>
-                    <execution>
-                        <id>download-sources</id>
-                        <goals>
-                            <goal>sources</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>download-javadocs</id>
-                        <goals>
-                            <goal>resolve</goal>
-                        </goals>
-                        <configuration>
-                            <classifier>javadoc</classifier>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 </project>
