@@ -1,7 +1,7 @@
 package org.example.base;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.example.pages.HomePage;
+import org.example.pages.MtsHomePage;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.WebDriver;
@@ -11,7 +11,7 @@ import java.time.Duration;
 
 public abstract class TestsConfig {
     protected static WebDriver driver;
-    protected static HomePage homePage;
+    protected static MtsHomePage homePage;
 
     @BeforeAll
     public static void setUp() {
@@ -20,7 +20,7 @@ public abstract class TestsConfig {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
         driver.get("http://mts.by");
-        homePage = new HomePage(driver);
+        homePage = new MtsHomePage(driver);
         homePage.acceptCookies();
     }
 

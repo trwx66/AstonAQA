@@ -15,10 +15,12 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-public class HomePage {
+public class MtsHomePage {
     private final WebDriverWait wait;
+    private final WebDriver driver;
 
-    public HomePage(WebDriver driver) {
+    public MtsHomePage(WebDriver driver) {
+        this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         PageFactory.initElements(driver, this);
     }
@@ -86,18 +88,23 @@ public class HomePage {
         return element.getAttribute("placeholder");
     }
 
-    public boolean fillFormAndSubmit(String phone, String amount, String email) {
-        servicesDropdown.click();
-        communicationServices.click();
-        phoneInputCommunication.sendKeys(phone);
+    public boolean fillFormAndSubmit(String phoneNumber, String amount, String email) {
+        driver.navigate().refresh();
+        wait.until(ExpectedConditions.elementToBeClickable(servicesDropdown)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(communicationServices)).click();
+        phoneInputCommunication.sendKeys(phoneNumber);
         amountInputCommunication.sendKeys(amount);
         emailInputCommunication.sendKeys(email);
-        continueButton.click();
+        wait.until(ExpectedConditions.elementToBeClickable(continueButton)).click();
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(iframe));
         String actual = wait.until(ExpectedConditions.visibilityOfAllElements(iframeDescription))
                 .stream().map(WebElement::getText).collect(Collectors.joining("\n"));
-        String expected = amount + ".00 BYN\nОплата: Услуги связи Номер:375" + phone;
+        String expected = amount + ".00 BYN\nОплата: Услуги связи Номер:375" + phoneNumber;
         return expected.equals(actual);
+    }
+
+    public void verifyFrameContent() {
+
     }
 
     public Stream<Arguments> getPlaceholderData() {

@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class HomePageTest extends TestsConfig {
+public class MtsHomePageTest extends TestsConfig {
 
     static Stream<Arguments> placeholderDataProvider() {
         return homePage.getPlaceholderData();
@@ -37,7 +37,6 @@ public class HomePageTest extends TestsConfig {
     })
     @DisplayName("Заполнение формы и проверка кнопки 'Продолжить'")
     public void testFormSubmission(String phoneNumber, String amount, String email) {
-        driver.navigate().refresh();
         assertTrue(homePage.fillFormAndSubmit(phoneNumber, amount, email),
                 "Вы ввели некорректные данные в блок 'Онлайн пополнение без комиссии'");
         System.out.println("Тест 'Заполнить поля и проверить работу кнопки «Продолжить»' - выполнен для данных: "
