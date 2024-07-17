@@ -24,85 +24,62 @@ public class HomePage {
     }
 
     @FindBy(xpath = "//button[contains(@class, 'btn_black') and text()='Принять']")
-    public WebElement acceptCookiesButton;
+    private WebElement acceptCookiesButton;
 
     @FindBy(xpath = "//button[@class='select__header']")
-    public WebElement servicesDropdown;
+    private WebElement servicesDropdown;
 
     @FindBy(xpath = "//p[text()='Услуги связи']")
-    public WebElement communicationServices;
+    private WebElement communicationServices;
 
     @FindBy(xpath = "//input[@placeholder='Номер телефона']")
-    public WebElement phoneInputCommunication;
+    private WebElement phoneInputCommunication;
 
-    @FindBy(xpath = "//input [@id='connection-sum']")
-    public WebElement amountInputCommunication;
+    @FindBy(xpath = "//input[@id='connection-sum']")
+    private WebElement amountInputCommunication;
 
     @FindBy(xpath = "//input[@id='connection-email']")
-    public WebElement emailInputCommunication;
+    private WebElement emailInputCommunication;
 
     @FindBy(xpath = "//input[@id='internet-phone']")
-    public WebElement phoneInputInternet;
+    private WebElement phoneInputInternet;
 
     @FindBy(xpath = "//input[@id='internet-sum']")
-    public WebElement amountInputInternet;
+    private WebElement amountInputInternet;
 
     @FindBy(xpath = "//input[@id='internet-email']")
-    public WebElement emailInputInternet;
+    private WebElement emailInputInternet;
 
     @FindBy(xpath = "//input[@id='score-instalment']")
-    public WebElement accountNumberInputInstallment;
+    private WebElement accountNumberInputInstallment;
 
     @FindBy(xpath = "//input[@id='instalment-sum']")
-    public WebElement amountInputInstallment;
+    private WebElement amountInputInstallment;
 
     @FindBy(xpath = "//input[@id='instalment-email']")
-    public WebElement emailInputInstallment;
+    private WebElement emailInputInstallment;
 
     @FindBy(xpath = "//input[@id='score-arrears']")
-    public WebElement accountNumberInputDebt;
+    private WebElement accountNumberInputDebt;
 
     @FindBy(xpath = "//input[@id='arrears-sum']")
-    public WebElement amountInputDebt;
+    private WebElement amountInputDebt;
 
     @FindBy(xpath = "//input[@id='arrears-email']")
-    public WebElement emailInputDebt;
-
-    @FindBy(xpath = "//div[@class='pay__wrapper']/h2")
-    public WebElement blockTitle;
-
-    @FindBy(xpath = "//div[@class='pay__partners']/ul/li")
-    public List<WebElement> paymentLogos;
+    private WebElement emailInputDebt;
 
     @FindBy(xpath = "(//button[text()='Продолжить'])[1]")
-    public WebElement continueButton;
+    private WebElement continueButton;
 
     @FindBy(xpath = "//iframe[@class='bepaid-iframe']")
-    public WebElement iframe;
+    private WebElement iframe;
 
-    @FindBy(xpath = "//div [@class='payment-page__order-description pay-description']")
-    public WebElement iframeDescription;
+    @FindBy(xpath = "//div[@class='payment-page__order-description pay-description']")
+    private List<WebElement> iframeDescription;
 
-    public Stream<Arguments> getPlaceholderData() {
-        return Stream.of(
-             arguments(phoneInputCommunication, "Номер телефона"),
-             arguments(amountInputCommunication, "Сумма"),
-             arguments(emailInputCommunication, "E-mail для отправки чека"),
-             arguments(phoneInputInternet, "Номер абонента"),
-             arguments(amountInputInternet, "Сумма"),
-             arguments(emailInputInternet, "E-mail для отправки чека"),
-             arguments(accountNumberInputInstallment, "Номер счета на 44"),
-             arguments(amountInputInstallment, "Сумма"),
-             arguments(emailInputInstallment, "E-mail для отправки чека"),
-             arguments(accountNumberInputDebt, "Номер счета на 2073"),
-             arguments(amountInputInstallment, "Сумма"),
-             arguments(emailInputInstallment, "E-mail для отправки чека")
-        );
-    }
 
     public void acceptCookies() {
-        wait.until(ExpectedConditions.elementToBeClickable(acceptCookiesButton));
-        acceptCookiesButton.click();
+        wait.until(ExpectedConditions.elementToBeClickable(acceptCookiesButton)).click();
     }
 
     public String getPlaceholderText(WebElement element) {
@@ -117,10 +94,26 @@ public class HomePage {
         emailInputCommunication.sendKeys(email);
         continueButton.click();
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(iframe));
-        String actual = wait.until(ExpectedConditions.visibilityOfAllElements(iframeDescription)).
-                stream().map(WebElement::getText).collect(Collectors.joining("\n"));
-        String expected = amount.concat(".00 BYN\n")
-                .concat("Оплата: Услуги связи Номер:375").concat(phone);
+        String actual = wait.until(ExpectedConditions.visibilityOfAllElements(iframeDescription))
+                .stream().map(WebElement::getText).collect(Collectors.joining("\n"));
+        String expected = amount + ".00 BYN\nОплата: Услуги связи Номер:375" + phone;
         return expected.equals(actual);
+    }
+
+    public Stream<Arguments> getPlaceholderData() {
+        return Stream.of(
+                arguments(phoneInputCommunication, "Номер телефона"),
+                arguments(amountInputCommunication, "Сумма"),
+                arguments(emailInputCommunication, "E-mail для отправки чека"),
+                arguments(phoneInputInternet, "Номер абонента"),
+                arguments(amountInputInternet, "Сумма"),
+                arguments(emailInputInternet, "E-mail для отправки чека"),
+                arguments(accountNumberInputInstallment, "Номер счета на 44"),
+                arguments(amountInputInstallment, "Сумма"),
+                arguments(emailInputInstallment, "E-mail для отправки чека"),
+                arguments(accountNumberInputDebt, "Номер счета на 2073"),
+                arguments(amountInputDebt, "Сумма"),
+                arguments(emailInputDebt, "E-mail для отправки чека")
+        );
     }
 }
