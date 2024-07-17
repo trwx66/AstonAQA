@@ -52,7 +52,6 @@ public class HomePage {
     @FindBy(xpath = "//iframe[@class='bepaid-iframe']")
     private WebElement iframe;
 
-
     @FindBy(xpath = "//div [@class='payment-page__order-description pay-description']")
     private WebElement iframeDescription;
 
@@ -78,6 +77,7 @@ public class HomePage {
     }
 
     public boolean fillFormAndSubmit(String phone, String amount, String email) {
+
         wait.until(ExpectedConditions.visibilityOf(phoneInput));
         servicesDropdown.click();
         communicationServices.click();

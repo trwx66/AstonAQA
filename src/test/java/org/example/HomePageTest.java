@@ -3,6 +3,8 @@ package org.example;
 import org.example.base.TestsConfig;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -31,10 +33,17 @@ public class HomePageTest extends TestsConfig {
         System.out.println("Тест \"Проверить работу ссылки «Подробнее о сервисе»\" - выполнен");
     }
 
-    @Test
+    @ParameterizedTest
+    @CsvSource({
+            "297777777, 499, test@example.com",
+            "298888888, 250, example@test.com",
+            "292323322, 1, user@domain.com"
+    })
     @DisplayName("Заполняем форму и проверяем работу кнопки \"Продолжить\"")
-    public void testFormSubmission() {
-        assertTrue(homePage.fillFormAndSubmit("297777777", "499", "test@example.com"));
-        System.out.println("Тест \"Заполнить поля и проверить работу кнопки «Продолжить»\" - выполнен");
+    public void testFormSubmission(String phoneNumber, String amount, String email) {
+        assertTrue(homePage.fillFormAndSubmit(phoneNumber, amount, email),
+                "Вы ввели некорректные данные в блок \"Онлайн пополнение без комиссии\"");
+        System.out.println("Тест \"Заполнить поля и проверить работу кнопки «Продолжить»\" - выполнен для данных: "
+                + phoneNumber + ", " + amount + ", " + email);
     }
 }
