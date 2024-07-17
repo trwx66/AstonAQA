@@ -11,10 +11,10 @@ import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class HomePage {
+public class MtsHomePage {
     private final WebDriverWait wait;
 
-    public HomePage(WebDriver driver) {
+    public MtsHomePage(WebDriver driver) {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         PageFactory.initElements(driver, this);
     }
@@ -38,13 +38,13 @@ public class HomePage {
     private WebElement communicationServices;
 
     @FindBy(xpath = "//input[@placeholder='Номер телефона']")
-    private WebElement phoneInput;
+    private WebElement phoneInputCommunication;
 
     @FindBy(xpath = "//input [@id='connection-sum']")
-    private WebElement amountInput;
+    private WebElement amountInputCommunication;
 
     @FindBy(xpath = "//input[@id='connection-email']")
-    private WebElement emailInput;
+    private WebElement emailInputCommunication;
 
     @FindBy(xpath = "(//button[text()='Продолжить'])[1]")
     private WebElement continueButton;
@@ -76,18 +76,17 @@ public class HomePage {
         moreInfoLink.click();
     }
 
-    public boolean fillFormAndSubmit(String phone, String amount, String email) {
-        servicesDropdown.click();
-        communicationServices.click();
-        phoneInput.sendKeys(phone);
-        amountInput.sendKeys(amount);
-        emailInput.sendKeys(email);
-        continueButton.click();
+    public boolean fillFormAndSubmit(String phoneNumber, String amount, String email) {
+        wait.until(ExpectedConditions.elementToBeClickable(servicesDropdown)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(communicationServices)).click();
+        phoneInputCommunication.sendKeys(phoneNumber);
+        amountInputCommunication.sendKeys(amount);
+        emailInputCommunication.sendKeys(email);
+        wait.until(ExpectedConditions.elementToBeClickable(continueButton)).click();
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(iframe));
-        String actual = wait.until(ExpectedConditions.visibilityOfAllElements(iframeDescription)).
-                stream().map(WebElement::getText).collect(Collectors.joining("\n"));
-        String expected = amount.concat(".00 BYN\n")
-                .concat("Оплата: Услуги связи Номер:375").concat(phone);
+        String actual = wait.until(ExpectedConditions.visibilityOfAllElements(iframeDescription))
+                .stream().map(WebElement::getText).collect(Collectors.joining("\n"));
+        String expected = amount + ".00 BYN\nОплата: Услуги связи Номер:375" + phoneNumber;
         return expected.equals(actual);
     }
 }
