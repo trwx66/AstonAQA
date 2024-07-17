@@ -77,8 +77,6 @@ public class HomePage {
     }
 
     public boolean fillFormAndSubmit(String phone, String amount, String email) {
-
-        wait.until(ExpectedConditions.visibilityOf(phoneInput));
         servicesDropdown.click();
         communicationServices.click();
         phoneInput.sendKeys(phone);
