@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.params.provider.Arguments.arguments;
@@ -106,5 +107,20 @@ public class HomePage {
 
     public String getPlaceholderText(WebElement element) {
         return element.getAttribute("placeholder");
+    }
+
+    public boolean fillFormAndSubmit(String phone, String amount, String email) {
+        servicesDropdown.click();
+        communicationServices.click();
+        phoneInputCommunication.sendKeys(phone);
+        amountInputCommunication.sendKeys(amount);
+        emailInputCommunication.sendKeys(email);
+        continueButton.click();
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(iframe));
+        String actual = wait.until(ExpectedConditions.visibilityOfAllElements(iframeDescription)).
+                stream().map(WebElement::getText).collect(Collectors.joining("\n"));
+        String expected = amount.concat(".00 BYN\n")
+                .concat("Оплата: Услуги связи Номер:375").concat(phone);
+        return expected.equals(actual);
     }
 }
