@@ -22,7 +22,7 @@ public abstract class TestsConfig {
         driver.manage().window().maximize();
         driver.get("http://mts.by");
         homePage = new HomePage(driver);
-        homePage.acceptCookies(); // Принимаем cookies перед выполнением тестов
+        homePage.acceptCookies();
     }
 
     @AfterEach
