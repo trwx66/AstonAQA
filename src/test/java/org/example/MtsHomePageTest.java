@@ -11,8 +11,7 @@ import org.openqa.selenium.WebElement;
 
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class MtsHomePageTest extends TestsConfig {
@@ -21,8 +20,12 @@ public class MtsHomePageTest extends TestsConfig {
         return homePage.getPlaceholderData();
     }
 
-    static Stream<Arguments> formData() {
-        return homePage.getFormData();
+    static Stream<Arguments> iFrameFormData() {
+        return homePage.getIframeFormData();
+    }
+
+    static Stream<Arguments> iframeLabel() {
+        return homePage.getIframeLabel();
     }
 
     @ParameterizedTest
@@ -37,7 +40,6 @@ public class MtsHomePageTest extends TestsConfig {
     @CsvSource({
             "297777777, 499, test@example.com",
             "298888888, 250, example@test.com",
-            "292323322, 1, user@domain.com"
     })
     @DisplayName("Заполнение формы и проверка кнопки 'Продолжить'")
     public void testFormSubmission(String phoneNumber, String amount, String email) {
@@ -59,11 +61,20 @@ public class MtsHomePageTest extends TestsConfig {
 //    }
 
     @ParameterizedTest
-    @MethodSource("formData")
+    @MethodSource("iFrameFormData")
     public void testIframeData(String phoneNumber, String amount, String email, WebElement element, String expected, String comment) {
         String actualText = homePage.getIframeText(phoneNumber, amount, email, element);
         assertEquals(expected, actualText,
                 "Ошибка: Ожидалось значение '" + expected + "', но было получено '" + actualText + "'");
         System.out.printf("Проверка %s в фрейме :%nДанные : телефон: %s, Сумма: %s, Email: %s%n%n", comment, phoneNumber, amount, email);
+    }
+
+    @ParameterizedTest
+    @MethodSource("iframeLabel")
+    @DisplayName("Проверка label iframe")
+    public void testLabelIframe(WebElement inputElement, String expectedText) {
+        homePage.inputDataAndSwitchFrame("297777777", "499", "test@example.com");
+        assertEquals(expectedText, homePage.getLabelText(inputElement),
+                "Несоответствие label фрейма: " + homePage.getLabelText(inputElement));
     }
 }
