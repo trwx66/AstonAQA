@@ -18,7 +18,7 @@ public abstract class TestsConfig {
     public void setUp() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
         driver.manage().window().maximize();
         driver.get("http://mts.by");
         mtsHomePage = new MtsHomePage(driver);

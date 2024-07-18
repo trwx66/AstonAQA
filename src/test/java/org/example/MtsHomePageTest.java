@@ -14,14 +14,14 @@ public class MtsHomePageTest extends TestsConfig {
     @DisplayName("Проверка названия блока 'Онлайн пополнение без комиссии'")
     public void testBlockTitle() {
         assertTrue(mtsHomePage.isBlockTitleDisplayed(), "Заголовок блока не отображается или не соответствует ожидаемому значению.");
-        System.out.println("Тест \"Проверить название указанного блока\" - выполнен");
+        System.out.println("Тест \"Проверка названия блока 'Онлайн пополнение без комиссии'\" - выполнен\n");
     }
 
     @Test
     @DisplayName("Проверка наличия логотипов платежных систем")
     public void testPaymentLogos() {
         assertTrue(mtsHomePage.arePaymentLogosDisplayed(), "Не все логотипы платежных систем отображаются");
-        System.out.println("Тест \"Проверить наличие логотипов платёжных систем\" - выполнен");
+        System.out.println("Тест \"Проверка наличия логотипов платежных систем\" - выполнен\n");
     }
 
     @Test
@@ -30,7 +30,7 @@ public class MtsHomePageTest extends TestsConfig {
         mtsHomePage.clickMoreInfoLink();
         assertTrue(driver.getCurrentUrl().contains("poryadok-oplaty-i-bezopasnost-internet-platezhey"),
                 "Ссылка 'Подробнее о сервисе' не работает.");
-        System.out.println("Тест \"Проверить работу ссылки «Подробнее о сервисе»\" - выполнен");
+        System.out.println("Тест \"Проверка работы ссылки 'Подробнее о сервисе'\" - выполнен\n");
     }
 
     @ParameterizedTest
@@ -39,11 +39,10 @@ public class MtsHomePageTest extends TestsConfig {
             "298888888, 250, example@test.com",
             "292323322, 1, user@domain.com"
     })
-    @DisplayName("Заполняем форму и проверяем работу кнопки \"Продолжить\"")
+    @DisplayName("Заполнение формы и проверка кнопки 'Продолжить'")
     public void testFormSubmission(String phoneNumber, String amount, String email) {
         assertTrue(mtsHomePage.fillFormAndSubmit(phoneNumber, amount, email),
-                "Вы ввели некорректные данные в блок \"Онлайн пополнение без комиссии\"");
-        System.out.println("Тест \"Заполнить поля и проверить работу кнопки «Продолжить»\" - выполнен для данных: "
-                + phoneNumber + ", " + amount + ", " + email);
+                "Фрейм не появился. Вы ввели некорректные данные в блок 'Онлайн пополнение без комиссии'");
+        System.out.printf("Тест 'Заполнение формы и проверка кнопки 'Продолжить' - выполнен%nДанные : %s, %s, %s%n%n", phoneNumber, amount, email);
     }
 }

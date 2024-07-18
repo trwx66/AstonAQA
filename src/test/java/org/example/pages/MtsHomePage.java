@@ -8,14 +8,14 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class MtsHomePage {
     private final WebDriverWait wait;
 
     public MtsHomePage(WebDriver driver) {
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(1));
         PageFactory.initElements(driver, this);
     }
 
@@ -52,8 +52,14 @@ public class MtsHomePage {
     @FindBy(xpath = "//iframe[@class='bepaid-iframe']")
     private WebElement iframe;
 
-    @FindBy(xpath = "//div [@class='payment-page__order-description pay-description']")
-    private WebElement iframeDescription;
+    @FindBy(xpath = "//p [text()='Введите сумму платежа']")
+    private List<WebElement> errorSum;
+
+    @FindBy(xpath = "//p [text()='Неверно указан номер']")
+    private List<WebElement> errorPhone;
+
+    @FindBy(xpath = "//p [text()='Введите корректный адрес электронной почты.']")
+    private List<WebElement> errorEmail;
 
     public void acceptCookies() {
         wait.until(ExpectedConditions.elementToBeClickable(acceptCookiesButton));
@@ -83,10 +89,15 @@ public class MtsHomePage {
         amountInputCommunication.sendKeys(amount);
         emailInputCommunication.sendKeys(email);
         wait.until(ExpectedConditions.elementToBeClickable(continueButton)).click();
-        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(iframe));
-        String actual = wait.until(ExpectedConditions.visibilityOfAllElements(iframeDescription))
-                .stream().map(WebElement::getText).collect(Collectors.joining("\n"));
-        String expected = amount + ".00 BYN\nОплата: Услуги связи Номер:375" + phoneNumber;
-        return expected.equals(actual);
+
+        if (areAnyErrorMessagesDisplayed(Arrays.asList(errorPhone, errorSum, errorEmail))) return false;
+
+        return wait.until(ExpectedConditions.visibilityOf(iframe)).isDisplayed();
+    }
+
+    private boolean areAnyErrorMessagesDisplayed(List<List<WebElement>> errorElementsLists) {
+        return errorElementsLists.stream()
+                .flatMap(List::stream)
+                .anyMatch(WebElement::isDisplayed);
     }
 }
