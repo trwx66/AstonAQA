@@ -4,10 +4,12 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.example.pages.MtsHomePage;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.time.Duration;
+import java.util.Set;
 
 public abstract class TestsConfig {
     protected static WebDriver driver;
@@ -17,7 +19,7 @@ public abstract class TestsConfig {
     public static void setUp() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         driver.manage().window().maximize();
         driver.get("http://mts.by");
         homePage = new MtsHomePage(driver);

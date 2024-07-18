@@ -9,8 +9,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.params.provider.Arguments.arguments;
@@ -76,9 +74,35 @@ public class MtsHomePage {
     @FindBy(xpath = "//iframe[@class='bepaid-iframe']")
     private WebElement iframe;
 
-    @FindBy(xpath = "//div[@class='payment-page__order-description pay-description']")
-    private List<WebElement> iframeDescription;
+    @FindBy(xpath = "//span[contains(text(), '.00 BYN')]")
+    public WebElement iFrameSum;
 
+    @FindBy(xpath = "//span[contains(text(), 'Оплата: Услуги связи')]")
+    public WebElement iFramePhoneNumber;
+
+    @FindBy(xpath = "//button [@class='colored disabled']")
+    public WebElement iFrameButtonSum;
+
+
+    private void inputDataAndSwitchFrame(String phoneNumber, String amount, String email) {
+        if (fillFormAndSubmit(phoneNumber, amount, email))
+            wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(iframe));
+    }
+
+//    public String getIframeSum(String phoneNumber, String amount, String email) {
+//        inputDataAndSwitchFrame(phoneNumber, amount, email);
+//        return wait.until(ExpectedConditions.visibilityOf(iFrameSum)).getText();
+//    }
+//
+//    public String getIframePhoneNumber(String phoneNumber, String amount, String email) {
+//        inputDataAndSwitchFrame(phoneNumber, amount, email);
+//        return wait.until(ExpectedConditions.visibilityOf(iFramePhoneNumber)).getText();
+//    }
+
+    public String getIframeText(String phoneNumber, String amount, String email, WebElement element) {
+        inputDataAndSwitchFrame(phoneNumber, amount, email);
+        return wait.until(ExpectedConditions.visibilityOf(element)).getText();
+    }
 
     public void acceptCookies() {
         wait.until(ExpectedConditions.elementToBeClickable(acceptCookiesButton)).click();
@@ -96,16 +120,19 @@ public class MtsHomePage {
         amountInputCommunication.sendKeys(amount);
         emailInputCommunication.sendKeys(email);
         wait.until(ExpectedConditions.elementToBeClickable(continueButton)).click();
-        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(iframe));
-        String actual = wait.until(ExpectedConditions.visibilityOfAllElements(iframeDescription))
-                .stream().map(WebElement::getText).collect(Collectors.joining("\n"));
-        String expected = amount + ".00 BYN\nОплата: Услуги связи Номер:375" + phoneNumber;
-        return expected.equals(actual);
+        return wait.until(ExpectedConditions.visibilityOf(iframe)).isDisplayed();
     }
 
-    public void verifyFrameContent() {
-
-    }
+//    public boolean verifyFrameContent(String phoneNumber, String amount, String email) {
+//
+//        if (fillFormAndSubmit(phoneNumber, amount, email)) {
+//            String actual = wait.until(ExpectedConditions.visibilityOfAllElements(iframeDescription))
+//                        .stream().map(WebElement::getText).collect(Collectors.joining("\n"));
+//            String expected = amount + ".00 BYN\nОплата: Услуги связи Номер:375" + phoneNumber;
+//            return expected.equals(actual);
+//        }
+//        return false;
+//    }
 
     public Stream<Arguments> getPlaceholderData() {
         return Stream.of(
@@ -121,6 +148,20 @@ public class MtsHomePage {
                 arguments(accountNumberInputDebt, "Номер счета на 2073"),
                 arguments(amountInputDebt, "Сумма"),
                 arguments(emailInputDebt, "E-mail для отправки чека")
+        );
+    }
+
+
+    public Stream<Arguments> getFormData() {
+
+        return Stream.of(
+                arguments("297777777", "499", "test@example.com", iFrameSum, "499.00 BYN", "\"label суммы\""),
+                arguments("298888888", "250", "example@test.com", iFrameSum, "250.00 BYN", "\"label суммы\""),
+                arguments("292323322", "1", "user@domain.com", iFrameSum, "1.00 BYN", "label суммы"),
+                arguments("297777777", "499", "test@example.com", iFramePhoneNumber, "Оплата: Услуги связи Номер:375297777777", "\"label информации об оплате\""),
+                arguments("298888888", "250", "example@test.com", iFramePhoneNumber, "Оплата: Услуги связи Номер:375298888888","\"label информации об оплате\""),
+                arguments("292323322", "1", "user@domain.com", iFramePhoneNumber, "Оплата: Услуги связи Номер:375292323322", "\"label информации об оплате\""),
+                arguments("297777777", "499", "test@example.com", iFrameButtonSum, "Оплатить 499.00 BYN", "\"кнопка подтверждения оплаты\"")
         );
     }
 }
