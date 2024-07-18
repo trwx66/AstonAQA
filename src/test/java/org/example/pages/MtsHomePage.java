@@ -21,43 +21,30 @@ public class MtsHomePage {
 
     @FindBy(xpath = "//button[contains(@class, 'btn_black') and text()='Принять']")
     private WebElement acceptCookiesButton;
-
     @FindBy(xpath = "//div[@class='pay__wrapper']/h2")
     private WebElement blockTitle;
-
     @FindBy(xpath = "//div[@class='pay__partners']/ul/li")
     private List<WebElement> paymentLogos;
-
     @FindBy(xpath = "//a[text()='Подробнее о сервисе']")
     private WebElement moreInfoLink;
-
     @FindBy(xpath = "//button[@class='select__header']")
     private WebElement servicesDropdown;
-
     @FindBy(xpath = "//p[text()='Услуги связи']")
     private WebElement communicationServices;
-
     @FindBy(xpath = "//input[@placeholder='Номер телефона']")
     private WebElement phoneInputCommunication;
-
     @FindBy(xpath = "//input [@id='connection-sum']")
     private WebElement amountInputCommunication;
-
     @FindBy(xpath = "//input[@id='connection-email']")
     private WebElement emailInputCommunication;
-
     @FindBy(xpath = "(//button[text()='Продолжить'])[1]")
     private WebElement continueButton;
-
     @FindBy(xpath = "//iframe[@class='bepaid-iframe']")
     private WebElement iframe;
-
     @FindBy(xpath = "//p [text()='Введите сумму платежа']")
     private List<WebElement> errorSum;
-
     @FindBy(xpath = "//p [text()='Неверно указан номер']")
     private List<WebElement> errorPhone;
-
     @FindBy(xpath = "//p [text()='Введите корректный адрес электронной почты.']")
     private List<WebElement> errorEmail;
 
@@ -66,13 +53,13 @@ public class MtsHomePage {
         acceptCookiesButton.click();
     }
 
-    public boolean isBlockTitleDisplayed() {
+    public boolean checkBlockTitleDisplayed() {
         wait.until(ExpectedConditions.visibilityOf(blockTitle));
         String expectedTitle = "Онлайн пополнение\nбез комиссии";
         return blockTitle.getText().equals(expectedTitle);
     }
 
-    public boolean arePaymentLogosDisplayed() {
+    public boolean checkPaymentLogosDisplayed() {
         wait.until(ExpectedConditions.visibilityOfAllElements(paymentLogos));
         return paymentLogos.stream().allMatch(WebElement::isDisplayed);
     }
@@ -90,12 +77,12 @@ public class MtsHomePage {
         emailInputCommunication.sendKeys(email);
         wait.until(ExpectedConditions.elementToBeClickable(continueButton)).click();
 
-        if (areAnyErrorMessagesDisplayed(Arrays.asList(errorPhone, errorSum, errorEmail))) return false;
+        if (checkAnyErrorMessagesDisplayed(Arrays.asList(errorPhone, errorSum, errorEmail))) return false;
 
         return wait.until(ExpectedConditions.visibilityOf(iframe)).isDisplayed();
     }
 
-    private boolean areAnyErrorMessagesDisplayed(List<List<WebElement>> errorElementsLists) {
+    private boolean checkAnyErrorMessagesDisplayed(List<List<WebElement>> errorElementsLists) {
         return errorElementsLists.stream()
                 .flatMap(List::stream)
                 .anyMatch(WebElement::isDisplayed);
