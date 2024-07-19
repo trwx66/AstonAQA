@@ -11,13 +11,14 @@ public abstract class TestsConfig {
 
     protected WebDriver driver;
     protected MtsHomePage mtsHomePage;
+    private static final String URL = "http://mts.by";
 
     @BeforeEach
     public void setUp() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        driver.get("http://mts.by");
+        driver.get(URL);
         mtsHomePage = new MtsHomePage(driver);
         mtsHomePage.acceptCookies();
     }
