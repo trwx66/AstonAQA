@@ -1,6 +1,5 @@
 package org.example.base;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.example.pages.MtsHomePage;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -13,14 +12,14 @@ import java.time.Duration;
 public abstract class TestsConfig {
     protected static WebDriver driver;
     protected static MtsHomePage homePage;
+    private static final String URL = "http://mts.by";
 
     @BeforeAll
     public static void setUp() {
-        WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
         driver.manage().window().maximize();
-        driver.get("http://mts.by");
+        driver.get(URL);
         homePage = new MtsHomePage(driver);
         homePage.acceptCookies();
     }
