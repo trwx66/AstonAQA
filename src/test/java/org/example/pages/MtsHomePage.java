@@ -15,7 +15,7 @@ public class MtsHomePage {
     private final WebDriverWait wait;
 
     public MtsHomePage(WebDriver driver) {
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(1));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         PageFactory.initElements(driver, this);
     }
 
@@ -48,9 +48,12 @@ public class MtsHomePage {
     @FindBy(xpath = "//p [text()='Введите корректный адрес электронной почты.']")
     private List<WebElement> errorEmail;
 
+    private void clickElement(WebElement element) {
+        wait.until(ExpectedConditions.elementToBeClickable(element)).click();
+    }
+
     public void acceptCookies() {
-        wait.until(ExpectedConditions.elementToBeClickable(acceptCookiesButton));
-        acceptCookiesButton.click();
+        clickElement(acceptCookiesButton);
     }
 
     public boolean checkBlockTitleDisplayed() {
@@ -65,17 +68,16 @@ public class MtsHomePage {
     }
 
     public void clickMoreInfoLink() {
-        wait.until(ExpectedConditions.elementToBeClickable(moreInfoLink));
-        moreInfoLink.click();
+        clickElement(moreInfoLink);
     }
 
     public boolean fillFormAndSubmit(String phoneNumber, String amount, String email) {
-        wait.until(ExpectedConditions.elementToBeClickable(servicesDropdown)).click();
-        wait.until(ExpectedConditions.elementToBeClickable(communicationServices)).click();
+        clickElement(servicesDropdown);
+        clickElement(communicationServices);
         phoneInputCommunication.sendKeys(phoneNumber);
         amountInputCommunication.sendKeys(amount);
         emailInputCommunication.sendKeys(email);
-        wait.until(ExpectedConditions.elementToBeClickable(continueButton)).click();
+        clickElement(continueButton);
 
         if (checkAnyErrorMessagesDisplayed(Arrays.asList(errorPhone, errorSum, errorEmail))) return false;
 
