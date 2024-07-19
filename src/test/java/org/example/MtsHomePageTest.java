@@ -8,6 +8,8 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.openqa.selenium.WebElement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.stream.Stream;
 
@@ -15,6 +17,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class MtsHomePageTest extends TestsConfig {
+
+    private static final Logger logger = LoggerFactory.getLogger(MtsHomePageTest.class);
 
     static Stream<Arguments> placeholderDataProvider() {
         return homePage.getPlaceholderData();
@@ -34,6 +38,8 @@ public class MtsHomePageTest extends TestsConfig {
     public void testPlaceholders(WebElement inputElement, String expectedText) {
         assertEquals(expectedText, homePage.getPlaceholderText(inputElement),
                 "Несоответствие в плейсхолдере: " + homePage.getPlaceholderText(inputElement));
+        logger.info("Проверка плейсхолдера для элемента {}: Ожидалось '{}', получено '{}'",
+                inputElement, expectedText, homePage.getPlaceholderText(inputElement));
     }
 
     @ParameterizedTest
@@ -45,20 +51,9 @@ public class MtsHomePageTest extends TestsConfig {
     public void testFormSubmission(String phoneNumber, String amount, String email) {
         assertTrue(homePage.fillFormAndSubmit(phoneNumber, amount, email),
                 "Фрейм не появился. Возможно вы ввели некорректные данные в блок 'Онлайн пополнение без комиссии'");
-        System.out.printf("Тест 'Заполнить поля и проверить работу кнопки «Продолжить»' - выполнен%nДанные : %s, %s, %s%n%n", phoneNumber, amount, email);
+        logger.info("Тест 'Заполнение формы и проверка кнопки «Продолжить»' - выполнен. Данные: phoneNumber='{}', amount='{}', email='{}'",
+                phoneNumber, amount, email);
     }
-
-    //    @ParameterizedTest
-//    @MethodSource("formData")
-//    public void testDataFrameSum(String phoneNumber, String amount, String email) {
-//        assertEquals(amount + ".00 BYN", homePage.getIframeSum(phoneNumber, amount, email));
-//    }
-//
-//    @ParameterizedTest
-//    @MethodSource("formData")
-//    public void testDataFramePhoneNumber(String phoneNumber, String amount, String email) {
-//        assertEquals("Оплата: Услуги связи Номер:375" + phoneNumber, homePage.getIframePhoneNumber(phoneNumber, amount, email));
-//    }
 
     @ParameterizedTest
     @MethodSource("iFrameFormData")
@@ -66,15 +61,17 @@ public class MtsHomePageTest extends TestsConfig {
         String actualText = homePage.getIframeText(phoneNumber, amount, email, element);
         assertEquals(expected, actualText,
                 "Ошибка: Ожидалось значение '" + expected + "', но было получено '" + actualText + "'");
-        System.out.printf("Проверка %s в фрейме :%nДанные : телефон: %s, Сумма: %s, Email: %s%n%n", comment, phoneNumber, amount, email);
+        logger.info("Проверка {} в фрейме: Данные - телефон: '{}', Сумма: '{}', Email: '{}'",
+                comment, phoneNumber, amount, email);
     }
 
     @ParameterizedTest
     @MethodSource("iframeLabel")
     @DisplayName("Проверка label iframe")
     public void testLabelIframe(WebElement inputElement, String expectedText) {
-        homePage.inputDataAndSwitchFrame("297777777", "499", "test@example.com");
-        assertEquals(expectedText, homePage.getLabelText(inputElement),
-                "Несоответствие label фрейма: " + homePage.getLabelText(inputElement));
+        assertEquals(expectedText, homePage.getIframeText("297777777","499","test@example.com",inputElement),
+                "Несоответствие label фрейма: " + homePage.getIframeText(inputElement));
+        logger.info("Проверка label iframe: Ожидалось '{}', получено '{}'",
+                expectedText, homePage.getIframeText(inputElement));
     }
 }
