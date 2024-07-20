@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MtsHomePageTest extends TestsConfig {
@@ -37,10 +38,21 @@ public class MtsHomePageTest extends TestsConfig {
     @Test
     @DisplayName("Проверка работы ссылки 'Подробнее о сервисе'")
     public void shouldOpenMoreInfoLink() {
-        assertThat(mtsHomePage.clickMoreInfoLink())
-                .as("Ссылка 'Подробнее о сервисе' не работает.")
-                .isEqualTo("https://www.mts.by/help/poryadok-oplaty-i-bezopasnost-internet-platezhey/");
-        logger.info("Тест \"Проверка работы ссылки 'Подробнее о сервисе'\" - выполнен");
+
+        assertAll("Проверка ссылки и заголовка",
+                () -> {
+                    assertThat(mtsHomePage.clickMoreInfoLink())
+                            .as("Ссылка 'Подробнее о сервисе' не работает.")
+                            .isEqualTo("https://www.mts.by/help/poryadok-oplaty-i-bezopasnost-internet-platezhey/");
+                    logger.info("Тест \"Проверка работы ссылки 'Подробнее о сервисе'\" - выполнен");
+                },
+                () -> {
+                    assertThat(mtsHomePage.paymentCardHeader.getText())
+                            .as("Заголовок не соответствует ожидаемому")
+                            .isEqualTo("Оплата банковской картой");
+                    logger.info("Тест \"Проверка заголовка на странице 'Подробнее о сервисе'\" - выполнен");
+                });
+
     }
 
     @ParameterizedTest
@@ -54,5 +66,10 @@ public class MtsHomePageTest extends TestsConfig {
         assertTrue(mtsHomePage.fillFormAndSubmit(phoneNumber, amount, email),
                 "Фрейм не появился. Вы ввели некорректные данные в блок 'Онлайн пополнение без комиссии'");
         logger.info("Тест \"Заполнение формы и проверка кнопки 'Продолжить'\" - выполнен. Данные: {}, {}, {}", phoneNumber, amount, email);
+    }
+
+    @Test
+    public void test() {
+        mtsHomePage.clickMoreInfoLink();
     }
 }

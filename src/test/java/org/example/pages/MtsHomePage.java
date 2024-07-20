@@ -50,6 +50,8 @@ public class MtsHomePage {
     private List<WebElement> errorPhone;
     @FindBy(xpath = "//p [text()='Введите корректный адрес электронной почты.']")
     private List<WebElement> errorEmail;
+    @FindBy(xpath = "//div/h3[contains(text(),'Оплата банковской картой')]")
+    public WebElement paymentCardHeader;
 
     private void clickElement(WebElement element) {
         wait.until(ExpectedConditions.elementToBeClickable(element)).click();
@@ -73,7 +75,6 @@ public class MtsHomePage {
         clickElement(moreInfoLink);
         return driver.getCurrentUrl();
     }
-
 
 
     public boolean fillFormAndSubmit(String phoneNumber, String amount, String email) {
