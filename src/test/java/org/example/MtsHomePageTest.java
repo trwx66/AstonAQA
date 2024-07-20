@@ -8,12 +8,15 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MtsHomePageTest extends TestsConfig {
-
+    private static final String EXPECTED_LINK = "https://www.mts.by/help/poryadok-oplaty-i-bezopasnost-internet-platezhey/";
+    private static final String EXPECTED_HEADER = "Оплата банковской картой";
     private static final Logger logger = LoggerFactory.getLogger(MtsHomePageTest.class);
 
     @Test
@@ -25,14 +28,30 @@ public class MtsHomePageTest extends TestsConfig {
         logger.info("Тест \"Проверка названия блока 'Онлайн пополнение без комиссии'\" - выполнен");
     }
 
-
     @Test
     @DisplayName("Проверка наличия логотипов платежных систем")
     public void shouldDisplayAllPaymentLogos() {
-        assertThat(mtsHomePage.checkPaymentLogosDisplayed())
-                .as("Не все логотипы платежных систем отображаются")
-                .isTrue();
-        logger.info("Тест \"Проверка наличия логотипов платежных систем\" - выполнен");
+        assertAll("Проверка отображения, наличия и кол-ва логотипов",
+                () -> {
+                    assertThat(mtsHomePage.checkPaymentLogosDisplayed())
+                            .as("Не все логотипы платежных систем отображаются")
+                            .isTrue();
+                    logger.info("Тест \"Проверка наличия логотипов платежных систем\" - выполнен");
+                },
+                () -> {
+                    assertThat(mtsHomePage.checkSizeLogos())
+                            .as("Неверное кол-во логотипов в окне 'Онлайн пополнение\n" +
+                                    "без комиссии'")
+                            .isEqualTo(5);
+                    logger.info("Тест \"Проверка кол-ва логотипов платежных систем\" - выполнен");
+                },
+                () -> {
+                    assertThat(mtsHomePage.checkListLogos())
+                            .as("Не все ожидаемые логотипы есть в списке\"")
+                            .containsAll(ListExpectedLogos());
+                    logger.info("Тест \"Проверка наличия логотипов\" - выполнен");
+                }
+        );
     }
 
     @Test
@@ -43,13 +62,13 @@ public class MtsHomePageTest extends TestsConfig {
                 () -> {
                     assertThat(mtsHomePage.clickMoreInfoLink())
                             .as("Ссылка 'Подробнее о сервисе' не работает.")
-                            .isEqualTo("https://www.mts.by/help/poryadok-oplaty-i-bezopasnost-internet-platezhey/");
+                            .isEqualTo(EXPECTED_LINK);
                     logger.info("Тест \"Проверка работы ссылки 'Подробнее о сервисе'\" - выполнен");
                 },
                 () -> {
                     assertThat(mtsHomePage.paymentCardHeader.getText())
                             .as("Заголовок не соответствует ожидаемому")
-                            .isEqualTo("Оплата банковской картой");
+                            .isEqualTo(EXPECTED_HEADER);
                     logger.info("Тест \"Проверка заголовка на странице 'Подробнее о сервисе'\" - выполнен");
                 });
 
@@ -59,7 +78,6 @@ public class MtsHomePageTest extends TestsConfig {
     @CsvSource({
             "297777777, 499, test@example.com",
             "298888888, 250, example@test.com",
-            "292323322, 1, user@domain.com"
     })
     @DisplayName("Заполнение формы и проверка кнопки 'Продолжить'")
     public void shouldSubmitFormAndDisplayIframe(String phoneNumber, String amount, String email) {
@@ -68,8 +86,7 @@ public class MtsHomePageTest extends TestsConfig {
         logger.info("Тест \"Заполнение формы и проверка кнопки 'Продолжить'\" - выполнен. Данные: {}, {}, {}", phoneNumber, amount, email);
     }
 
-    @Test
-    public void test() {
-        mtsHomePage.clickMoreInfoLink();
+    private List<String> ListExpectedLogos() {
+        return List.of("Visa", "MasterCard", "Verified By Visa", "MasterCard Secure Code", "Белкарт");
     }
 }

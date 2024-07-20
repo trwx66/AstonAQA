@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MtsHomePage {
     private static final int TIMEOUT_IN_SECONDS = 10;
@@ -26,7 +27,7 @@ public class MtsHomePage {
     private WebElement acceptCookiesButton;
     @FindBy(xpath = "//div[@class='pay__wrapper']/h2")
     private WebElement blockTitle;
-    @FindBy(xpath = "//div[@class='pay__partners']/ul/li")
+    @FindBy(xpath = "//div[@class='pay__partners']/ul/li/img")
     private List<WebElement> paymentLogos;
     @FindBy(xpath = "//a[text()='Подробнее о сервисе']")
     private WebElement moreInfoLink;
@@ -53,6 +54,10 @@ public class MtsHomePage {
     @FindBy(xpath = "//div/h3[contains(text(),'Оплата банковской картой')]")
     public WebElement paymentCardHeader;
 
+    private List<WebElement> waitVisibilityOfElements(List<WebElement> element) {
+        return wait.until(ExpectedConditions.visibilityOfAllElements(element));
+    }
+
     private void clickElement(WebElement element) {
         wait.until(ExpectedConditions.elementToBeClickable(element)).click();
     }
@@ -67,8 +72,13 @@ public class MtsHomePage {
     }
 
     public boolean checkPaymentLogosDisplayed() {
-        wait.until(ExpectedConditions.visibilityOfAllElements(paymentLogos));
+        waitVisibilityOfElements(paymentLogos);
         return paymentLogos.stream().allMatch(WebElement::isDisplayed);
+    }
+
+    public int checkSizeLogos() {
+        waitVisibilityOfElements(paymentLogos);
+        return paymentLogos.size();
     }
 
     public String clickMoreInfoLink() {
@@ -76,6 +86,10 @@ public class MtsHomePage {
         return driver.getCurrentUrl();
     }
 
+    public List<String> checkListLogos() {
+        waitVisibilityOfElements(paymentLogos);
+        return paymentLogos.stream().map(logo->logo.getAttribute("alt")).collect(Collectors.toList());
+    }
 
     public boolean fillFormAndSubmit(String phoneNumber, String amount, String email) {
         clickElement(servicesDropdown);
