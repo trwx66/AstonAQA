@@ -16,7 +16,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MtsHomePageTest extends TestsConfig {
     private static final String EXPECTED_LINK = "https://www.mts.by/help/poryadok-oplaty-i-bezopasnost-internet-platezhey/";
-    private static final String EXPECTED_HEADER = "Оплата банковской картой";
     private static final Logger logger = LoggerFactory.getLogger(MtsHomePageTest.class);
 
     @Test
@@ -68,7 +67,7 @@ public class MtsHomePageTest extends TestsConfig {
                 () -> {
                     assertThat(mtsHomePage.paymentCardHeader.getText())
                             .as("Заголовок не соответствует ожидаемому")
-                            .isEqualTo(EXPECTED_HEADER);
+                            .isEqualTo("Оплата банковской картой");
                     logger.info("Тест \"Проверка заголовка на странице 'Подробнее о сервисе'\" - выполнен");
                 });
 
