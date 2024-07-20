@@ -59,10 +59,9 @@ public class MtsHomePage {
         clickElement(acceptCookiesButton);
     }
 
-    public boolean checkBlockTitleDisplayed() {
+    public String checkBlockTitleDisplayed() {
         wait.until(ExpectedConditions.visibilityOf(blockTitle));
-        String expectedTitle = "Онлайн пополнение\nбез комиссии";
-        return blockTitle.getText().equals(expectedTitle);
+        return blockTitle.getText();
     }
 
     public boolean checkPaymentLogosDisplayed() {
@@ -74,6 +73,8 @@ public class MtsHomePage {
         clickElement(moreInfoLink);
         return driver.getCurrentUrl();
     }
+
+
 
     public boolean fillFormAndSubmit(String phoneNumber, String amount, String email) {
         clickElement(servicesDropdown);

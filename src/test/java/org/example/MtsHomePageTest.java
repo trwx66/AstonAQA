@@ -8,6 +8,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -18,9 +19,12 @@ public class MtsHomePageTest extends TestsConfig {
     @Test
     @DisplayName("Проверка названия блока 'Онлайн пополнение без комиссии'")
     public void shouldDisplayCorrectBlockTitle() {
-        assertTrue(mtsHomePage.checkBlockTitleDisplayed(), "Заголовок блока не отображается или не соответствует ожидаемому значению.");
+        assertThat(mtsHomePage.checkBlockTitleDisplayed())
+                .as("Заголовок блока не отображается или не соответствует ожидаемому значению.")
+                .isEqualTo("Онлайн пополнение\nбез комиссии");
         logger.info("Тест \"Проверка названия блока 'Онлайн пополнение без комиссии'\" - выполнен");
     }
+
 
     @Test
     @DisplayName("Проверка наличия логотипов платежных систем")
