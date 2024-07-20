@@ -12,7 +12,6 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MtsHomePageTest extends TestsConfig {
     private static final String EXPECTED_LINK = "https://www.mts.by/help/poryadok-oplaty-i-bezopasnost-internet-platezhey/";
@@ -80,8 +79,10 @@ public class MtsHomePageTest extends TestsConfig {
     })
     @DisplayName("Заполнение формы и проверка кнопки 'Продолжить'")
     public void shouldSubmitFormAndDisplayIframe(String phoneNumber, String amount, String email) {
-        assertTrue(mtsHomePage.fillFormAndSubmit(phoneNumber, amount, email),
-                "Фрейм не появился. Вы ввели некорректные данные в блок 'Онлайн пополнение без комиссии'");
+        assertThat(mtsHomePage.fillFormAndSubmit(phoneNumber, amount, email))
+                .as("Фрейм не появился. Вероятно вы ввели некорректные" +
+                        " данные в блок 'Онлайн пополнение без комиссии'")
+                        .isTrue();
         logger.info("Тест \"Заполнение формы и проверка кнопки 'Продолжить'\" - выполнен. Данные: {}, {}, {}", phoneNumber, amount, email);
     }
 
