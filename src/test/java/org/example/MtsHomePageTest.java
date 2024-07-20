@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MtsHomePageTest extends TestsConfig {
@@ -29,15 +28,18 @@ public class MtsHomePageTest extends TestsConfig {
     @Test
     @DisplayName("Проверка наличия логотипов платежных систем")
     public void shouldDisplayAllPaymentLogos() {
-        assertTrue(mtsHomePage.checkPaymentLogosDisplayed(), "Не все логотипы платежных систем отображаются");
+        assertThat(mtsHomePage.checkPaymentLogosDisplayed())
+                .as("Не все логотипы платежных систем отображаются")
+                .isTrue();
         logger.info("Тест \"Проверка наличия логотипов платежных систем\" - выполнен");
     }
 
     @Test
     @DisplayName("Проверка работы ссылки 'Подробнее о сервисе'")
     public void shouldOpenMoreInfoLink() {
-        assertEquals(mtsHomePage.clickMoreInfoLink(), "https://www.mts.by/help/poryadok-oplaty-i-bezopasnost-internet-platezhey/",
-                "Ссылка 'Подробнее о сервисе' не работает.");
+        assertThat(mtsHomePage.clickMoreInfoLink())
+                .as("Ссылка 'Подробнее о сервисе' не работает.")
+                .isEqualTo("https://www.mts.by/help/poryadok-oplaty-i-bezopasnost-internet-platezhey/");
         logger.info("Тест \"Проверка работы ссылки 'Подробнее о сервисе'\" - выполнен");
     }
 
