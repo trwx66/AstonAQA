@@ -4,6 +4,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -107,6 +108,15 @@ public class MtsHomePage {
     @FindBy(xpath = "//label[text()='Имя держателя (как на карте)']")
     private WebElement iFrameLabelName;
 
+//    @FindBy(xpath = "//div[@class='cards-brands ng-tns-c46-1']//img")
+//    private List<WebElement> iFrameLogosPayment;
+
+    @FindBys({
+            @FindBy(xpath = "//div[@class='cards-brands ng-tns-c46-1']//img"),
+            @FindBy(xpath = "//div[@class='card-page__methods-container']//button")
+    })
+    private List<WebElement> iFrameLogosPayment;
+
     public void acceptCookies() {
         clickElement(acceptCookiesButton);
     }
@@ -182,6 +192,24 @@ public class MtsHomePage {
     private void switchToIframeAndAwait(WebElement iframe, WebElement elementToWaitFor) {
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(iframe));
         waitUntilVisible(elementToWaitFor);
+    }
+
+    private List<WebElement> waitVisibilityOfElements(List<WebElement> element) {
+        return wait.until(ExpectedConditions.visibilityOfAllElements(element));
+    }
+
+    public boolean checkIframeLogosDisplayed() {
+        defaultLoginSwitchIframe();
+        return iFrameLogosPayment.stream().allMatch(WebElement::isDisplayed);
+    }
+    public int checkSizeLogos() {
+        defaultLoginSwitchIframe();
+        return iFrameLogosPayment.size();
+    }
+    public void defaultLoginSwitchIframe(){
+        fillFormAndSubmit("297777777", "499", "test@example.com");
+        driver.switchTo().frame(iframe);
+        waitVisibilityOfElements(iFrameLogosPayment);
     }
 
     public Stream<Arguments> getPlaceholderData() {

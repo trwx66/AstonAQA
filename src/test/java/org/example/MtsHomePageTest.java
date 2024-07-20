@@ -2,6 +2,7 @@ package org.example;
 
 import org.example.base.TestsConfig;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -13,6 +14,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.stream.Stream;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -20,15 +22,15 @@ public class MtsHomePageTest extends TestsConfig {
 
     private static final Logger logger = LoggerFactory.getLogger(MtsHomePageTest.class);
 
-    static Stream<Arguments> placeholderDataProvider() {
+      Stream<Arguments> placeholderDataProvider() {
         return homePage.getPlaceholderData();
     }
 
-    static Stream<Arguments> iFrameFormData() {
+      Stream<Arguments> iFrameFormData() {
         return homePage.getIframeFormData();
     }
 
-    static Stream<Arguments> iframeLabel() {
+      Stream<Arguments> iframeLabel() {
         return homePage.getIframeLabel();
     }
 
@@ -74,4 +76,31 @@ public class MtsHomePageTest extends TestsConfig {
         logger.info("Проверка label iframe: Ожидалось '{}', получено '{}'",
                 expectedText, homePage.getIframeText(inputElement));
     }
+
+    @Test
+    @DisplayName("Проверка наличия логотипов платежных систем")
+    public void shouldDisplayAllPaymentLogos() {
+        assertAll("Проверка отображения, наличия и кол-ва платёжных систем iframe",
+                () -> {
+                    assertThat(homePage.checkIframeLogosDisplayed())
+                            .as("Не все логотипы платежных систем в iframe отображаются")
+                            .isTrue();
+                    logger.info("Тест \"Проверка наличия логотипов платежных в iframe систем\" - выполнен");
+                },
+                () -> {
+                    assertThat(homePage.checkSizeLogos())
+                            .as("Неверное кол-во логотипов в iframe")
+                            //тут неверное надо переделывать
+                            .isEqualTo(10);
+                    logger.info("Тест \"Проверка кол-ва логотипов платежных систем в iframe\" - выполнен");
+                }
+//                () -> {
+//                    assertThat(homePage.checkListLogos())
+//                            .as("Не все ожидаемые логотипы есть в списке\"")
+//                            .containsAll(ListExpectedLogos());
+//                    logger.info("Тест \"Проверка наличия логотипов\" - выполнен");
+        );
+    }
+
+
 }
