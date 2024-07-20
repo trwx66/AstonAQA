@@ -8,6 +8,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MtsHomePageTest extends TestsConfig {
@@ -31,8 +32,7 @@ public class MtsHomePageTest extends TestsConfig {
     @Test
     @DisplayName("Проверка работы ссылки 'Подробнее о сервисе'")
     public void shouldOpenMoreInfoLink() {
-        mtsHomePage.clickMoreInfoLink();
-        assertTrue(driver.getCurrentUrl().contains("poryadok-oplaty-i-bezopasnost-internet-platezhey"),
+        assertEquals(mtsHomePage.clickMoreInfoLink(), "https://www.mts.by/help/poryadok-oplaty-i-bezopasnost-internet-platezhey/",
                 "Ссылка 'Подробнее о сервисе' не работает.");
         logger.info("Тест \"Проверка работы ссылки 'Подробнее о сервисе'\" - выполнен");
     }
