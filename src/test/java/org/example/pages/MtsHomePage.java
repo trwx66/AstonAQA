@@ -202,11 +202,13 @@ public class MtsHomePage {
         defaultLoginSwitchIframe();
         return iFrameLogosPayment.stream().allMatch(WebElement::isDisplayed);
     }
+
     public int checkSizeLogos() {
         defaultLoginSwitchIframe();
         return iFrameLogosPayment.size();
     }
-    public void defaultLoginSwitchIframe(){
+
+    public void defaultLoginSwitchIframe() {
         fillFormAndSubmit("297777777", "499", "test@example.com");
         driver.switchTo().frame(iframe);
         waitVisibilityOfElements(iFrameLogosPayment);
@@ -244,5 +246,10 @@ public class MtsHomePage {
                 arguments("297777777", "499", "test@example.com", iFramePhoneNumber, "Оплата: Услуги связи Номер:375297777777", "\"label информации об оплате\""),
                 arguments("297777777", "499", "test@example.com", iFrameButtonSum, "Оплатить 499.00 BYN", "\"кнопка подтверждения оплаты\"")
         );
+    }
+
+    public IframePage clickIframePage() {
+        defaultLoginSwitchIframe();
+        return new IframePage(driver);
     }
 }
