@@ -18,9 +18,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class MtsHomePageTest extends TestsConfig {
+public class HomePageTest extends TestsConfig {
 
-    private static final Logger logger = LoggerFactory.getLogger(MtsHomePageTest.class);
+    private static final Logger logger = LoggerFactory.getLogger(HomePageTest.class);
 
       Stream<Arguments> placeholderDataProvider() {
         return homePage.getPlaceholderData();

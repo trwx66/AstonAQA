@@ -16,12 +16,12 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-public class MtsHomePage {
+public class HomePage {
     private static final int TIMEOUT_IN_SECONDS = 10;
     private final WebDriverWait wait;
     private final WebDriver driver;
 
-    public MtsHomePage(WebDriver driver) {
+    public HomePage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT_IN_SECONDS));
         PageFactory.initElements(driver, this);
@@ -29,82 +29,56 @@ public class MtsHomePage {
 
     @FindBy(xpath = "//button[contains(@class, 'btn_black') and text()='Принять']")
     private WebElement acceptCookiesButton;
-
     @FindBy(xpath = "//button[@class='select__header']")
     private WebElement servicesDropdown;
-
     @FindBy(xpath = "//p[text()='Услуги связи']")
     private WebElement communicationServices;
-
     @FindBy(xpath = "//input[@placeholder='Номер телефона']")
     private WebElement phonePlaceholderCom;
-
     @FindBy(xpath = "//input[@id='connection-sum']")
     private WebElement amountPlaceholderCom;
-
     @FindBy(xpath = "//input[@id='connection-email']")
     private WebElement emailPlaceholderCom;
-
     @FindBy(xpath = "//input[@id='internet-phone']")
     private WebElement phonePlaceholderInternet;
-
     @FindBy(xpath = "//input[@id='internet-sum']")
     private WebElement amountPlaceholderInternet;
-
     @FindBy(xpath = "//input[@id='internet-email']")
     private WebElement emailPlaceholderInternet;
-
     @FindBy(xpath = "//input[@id='score-instalment']")
     private WebElement accNumPlaceholderIns;
-
     @FindBy(xpath = "//input[@id='instalment-sum']")
     private WebElement amountPlaceholderIns;
-
     @FindBy(xpath = "//input[@id='instalment-email']")
     private WebElement emailPlaceholderIns;
-
     @FindBy(xpath = "//input[@id='score-arrears']")
     private WebElement accNumPlaceholderDebt;
-
     @FindBy(xpath = "//input[@id='arrears-sum']")
     private WebElement amountPlaceholderDebt;
-
     @FindBy(xpath = "//input[@id='arrears-email']")
     private WebElement emailPlaceholderDebt;
-
     @FindBy(xpath = "(//button[text()='Продолжить'])[1]")
     private WebElement continueButton;
-
     @FindBy(xpath = "//iframe[@class='bepaid-iframe']")
     private WebElement iframe;
-
     @FindBy(xpath = "//span[contains(text(), '.00 BYN')]")
     private WebElement iFrameSum;
-
     @FindBy(xpath = "//span[contains(text(), 'Оплата: Услуги связи')]")
     private WebElement iFramePhoneNumber;
-
     @FindBy(xpath = "//button[@class='colored disabled']")
     private WebElement iFrameButtonSum;
-
     @FindBy(xpath = "//p[text()='Введите сумму платежа']")
     private List<WebElement> errorSum;
-
     @FindBy(xpath = "//p[text()='Неверно указан номер']")
     private List<WebElement> errorPhone;
-
     @FindBy(xpath = "//p[text()='Введите корректный адрес электронной почты.']")
     private List<WebElement> errorEmail;
-
     @FindBy(xpath = "//label[text()='Номер карты']")
     private WebElement iFrameLabelCardNum;
-
     @FindBy(xpath = "//label[text()='Срок действия']")
     private WebElement iFrameLabelPeriod;
-
     @FindBy(xpath = "//label[text()='CVC']")
     private WebElement iFrameLabelCvc;
-
     @FindBy(xpath = "//label[text()='Имя держателя (как на карте)']")
     private WebElement iFrameLabelName;
 
@@ -248,8 +222,8 @@ public class MtsHomePage {
         );
     }
 
-    public IframePage clickIframePage() {
-        defaultLoginSwitchIframe();
-        return new IframePage(driver);
-    }
+//    public IframePage clickIframePage() {
+//        defaultLoginSwitchIframe();
+//        return new IframePage(driver);
+//    }
 }
