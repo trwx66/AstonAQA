@@ -22,15 +22,15 @@ public class HomePageTest extends TestsConfig {
 
     private static final Logger logger = LoggerFactory.getLogger(HomePageTest.class);
 
-      Stream<Arguments> placeholderDataProvider() {
+    Stream<Arguments> placeholderDataProvider() {
         return homePage.getPlaceholderData();
     }
 
-      Stream<Arguments> iFrameFormData() {
+    Stream<Arguments> iFrameFormData() {
         return homePage.getIframeFormData();
     }
 
-      Stream<Arguments> iframeLabel() {
+    Stream<Arguments> iframeLabel() {
         return homePage.getIframeLabel();
     }
 
@@ -41,7 +41,7 @@ public class HomePageTest extends TestsConfig {
         assertEquals(expectedText, homePage.getPlaceholderText(inputElement),
                 "Несоответствие в плейсхолдере: " + homePage.getPlaceholderText(inputElement));
         logger.info("Проверка плейсхолдера для элемента {}: Ожидалось '{}', получено '{}'",
-                inputElement, expectedText, homePage.getPlaceholderText(inputElement));
+                inputElement.getText(), expectedText, homePage.getPlaceholderText(inputElement));
     }
 
     @ParameterizedTest
@@ -71,7 +71,7 @@ public class HomePageTest extends TestsConfig {
     @MethodSource("iframeLabel")
     @DisplayName("Проверка label iframe")
     public void testLabelIframe(WebElement inputElement, String expectedText) {
-        assertEquals(expectedText, homePage.getIframeText("297777777","499","test@example.com",inputElement),
+        assertEquals(expectedText, homePage.getIframeText("297777777", "499", "test@example.com", inputElement),
                 "Несоответствие label фрейма: " + homePage.getIframeText(inputElement));
         logger.info("Проверка label iframe: Ожидалось '{}', получено '{}'",
                 expectedText, homePage.getIframeText(inputElement));
@@ -90,17 +90,9 @@ public class HomePageTest extends TestsConfig {
                 () -> {
                     assertThat(homePage.checkSizeLogos())
                             .as("Неверное кол-во логотипов в iframe")
-                            //тут неверное надо переделывать
-                            .isEqualTo(10);
+                            .isEqualTo(5);
                     logger.info("Тест \"Проверка кол-ва логотипов платежных систем в iframe\" - выполнен");
                 }
-//                () -> {
-//                    assertThat(homePage.checkListLogos())
-//                            .as("Не все ожидаемые логотипы есть в списке\"")
-//                            .containsAll(ListExpectedLogos());
-//                    logger.info("Тест \"Проверка наличия логотипов\" - выполнен");
         );
     }
-
-
 }

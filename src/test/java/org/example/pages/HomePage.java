@@ -4,7 +4,6 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -81,14 +80,7 @@ public class HomePage {
     private WebElement iFrameLabelCvc;
     @FindBy(xpath = "//label[text()='Имя держателя (как на карте)']")
     private WebElement iFrameLabelName;
-
-//    @FindBy(xpath = "//div[@class='cards-brands ng-tns-c46-1']//img")
-//    private List<WebElement> iFrameLogosPayment;
-
-    @FindBys({
-            @FindBy(xpath = "//div[@class='cards-brands ng-tns-c46-1']//img"),
-            @FindBy(xpath = "//div[@class='card-page__methods-container']//button")
-    })
+    @FindBy(xpath = "//div[@class='cards-brands ng-tns-c46-1']//img")
     private List<WebElement> iFrameLogosPayment;
 
     public void acceptCookies() {
@@ -168,8 +160,8 @@ public class HomePage {
         waitUntilVisible(elementToWaitFor);
     }
 
-    private List<WebElement> waitVisibilityOfElements(List<WebElement> element) {
-        return wait.until(ExpectedConditions.visibilityOfAllElements(element));
+    private void waitVisibilityOfElements(List<WebElement> element) {
+        wait.until(ExpectedConditions.visibilityOfAllElements(element));
     }
 
     public boolean checkIframeLogosDisplayed() {
@@ -221,9 +213,4 @@ public class HomePage {
                 arguments("297777777", "499", "test@example.com", iFrameButtonSum, "Оплатить 499.00 BYN", "\"кнопка подтверждения оплаты\"")
         );
     }
-
-//    public IframePage clickIframePage() {
-//        defaultLoginSwitchIframe();
-//        return new IframePage(driver);
-//    }
 }
