@@ -38,10 +38,12 @@ public class HomePageTest extends TestsConfig {
     @MethodSource("placeholderDataProvider")
     @DisplayName("Проверка плейсхолдеров")
     public void testPlaceholders(WebElement inputElement, String expectedText) {
-        assertEquals(expectedText, homePage.getPlaceholderText(inputElement),
-                "Несоответствие в плейсхолдере: " + homePage.getPlaceholderText(inputElement));
+        String actualText = homePage.getPlaceholderText(inputElement);
+        assertThat(actualText)
+                .as("Несоответствие в плейсхолдере: " + actualText)
+                .isEqualTo(expectedText);
         logger.info("Проверка плейсхолдера для элемента {}: Ожидалось '{}', получено '{}'",
-                inputElement.getText(), expectedText, homePage.getPlaceholderText(inputElement));
+                inputElement.getText(), expectedText, actualText);
     }
 
     @ParameterizedTest
@@ -51,18 +53,21 @@ public class HomePageTest extends TestsConfig {
     })
     @DisplayName("Заполнение формы и проверка кнопки 'Продолжить'")
     public void testFormSubmission(String phoneNumber, String amount, String email) {
-        assertTrue(homePage.fillFormAndSubmit(phoneNumber, amount, email),
-                "Фрейм не появился. Возможно вы ввели некорректные данные в блок 'Онлайн пополнение без комиссии'");
+        assertThat(homePage.fillFormAndSubmit(phoneNumber, amount, email))
+                .as("Фрейм не появился. Возможно вы ввели некорректные данные в блок 'Онлайн пополнение без комиссии'")
+                .isTrue();
         logger.info("Тест 'Заполнение формы и проверка кнопки «Продолжить»' - выполнен. Данные: phoneNumber='{}', amount='{}', email='{}'",
                 phoneNumber, amount, email);
     }
 
     @ParameterizedTest
     @MethodSource("iFrameFormData")
+    @DisplayName("Проверка инф-ии в iframe сумма\\телефон\\инф на кнопке")
     public void testIframeData(String phoneNumber, String amount, String email, WebElement element, String expected, String comment) {
         String actualText = homePage.getIframeText(phoneNumber, amount, email, element);
-        assertEquals(expected, actualText,
-                "Ошибка: Ожидалось значение '" + expected + "', но было получено '" + actualText + "'");
+        assertThat(actualText)
+                .as("Ошибка: Ожидалось значение '" + expected + "', но было получено '" + actualText + "'")
+                .isEqualTo(expected);
         logger.info("Проверка {} в фрейме: Данные - телефон: '{}', Сумма: '{}', Email: '{}'",
                 comment, phoneNumber, amount, email);
     }
@@ -71,10 +76,12 @@ public class HomePageTest extends TestsConfig {
     @MethodSource("iframeLabel")
     @DisplayName("Проверка label iframe")
     public void testLabelIframe(WebElement inputElement, String expectedText) {
-        assertEquals(expectedText, homePage.getIframeText("297777777", "499", "test@example.com", inputElement),
-                "Несоответствие label фрейма: " + homePage.getIframeText(inputElement));
+        String actualText = homePage.getIframeText("297777777", "499", "test@example.com", inputElement);
+        assertThat(actualText)
+                .as("Несоответствие label фрейма: " + actualText)
+                .isEqualTo(expectedText);
         logger.info("Проверка label iframe: Ожидалось '{}', получено '{}'",
-                expectedText, homePage.getIframeText(inputElement));
+                expectedText, actualText);
     }
 
     @Test
@@ -85,7 +92,7 @@ public class HomePageTest extends TestsConfig {
                     assertThat(homePage.checkIframeLogosDisplayed())
                             .as("Не все логотипы платежных систем в iframe отображаются")
                             .isTrue();
-                    logger.info("Тест \"Проверка наличия логотипов платежных в iframe систем\" - выполнен");
+                    logger.info("Тест \"Проверка наличия логотипов платежных систем в iframe\" - выполнен");
                 },
                 () -> {
                     assertThat(homePage.checkSizeLogos())

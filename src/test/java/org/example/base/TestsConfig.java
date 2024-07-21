@@ -13,8 +13,16 @@ public abstract class TestsConfig {
 
     @BeforeAll
     public static void setUp() {
+        initializeDriver();
+        initializePage();
+    }
+
+    private static void initializeDriver() {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
+    }
+
+    private static void initializePage() {
         driver.get(URL);
         homePage = new HomePage(driver);
         homePage.acceptCookies();

@@ -9,8 +9,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.params.provider.Arguments.arguments;
@@ -98,10 +98,6 @@ public class HomePage {
         return getTextWhenVisible(element);
     }
 
-    public String getIframeText(WebElement element) {
-        return getTextWhenVisible(element);
-    }
-
     public String getPlaceholderText(WebElement element) {
         return element.getAttribute("placeholder");
     }
@@ -121,12 +117,11 @@ public class HomePage {
         return getErrorElements().stream().anyMatch(WebElement::isDisplayed);
     }
 
+
     private List<WebElement> getErrorElements() {
-        List<WebElement> errorElements = new ArrayList<>();
-        errorElements.addAll(errorPhone);
-        errorElements.addAll(errorSum);
-        errorElements.addAll(errorEmail);
-        return errorElements;
+        return Stream.of(errorPhone, errorSum, errorEmail)
+                .flatMap(List::stream)
+                .collect(Collectors.toList());
     }
 
     private void clickElement(WebElement element) {
