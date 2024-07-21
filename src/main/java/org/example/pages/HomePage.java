@@ -12,12 +12,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class MtsHomePage {
+public class HomePage {
     private static final int TIMEOUT_IN_SECONDS = 10;
     private final WebDriverWait wait;
     private final WebDriver driver;
 
-    public MtsHomePage(WebDriver driver) {
+    public HomePage(WebDriver driver) {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT_IN_SECONDS));
         this.driver = driver;
         PageFactory.initElements(driver, this);

@@ -1,6 +1,6 @@
-package org.example;
+package org.example.tests;
 
-import org.example.base.TestsConfig;
+import org.example.tests.base.TestsConfig;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -13,14 +13,14 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-public class MtsHomePageTest extends TestsConfig {
+public class HomePageTest extends TestsConfig {
     private static final String EXPECTED_LINK = "https://www.mts.by/help/poryadok-oplaty-i-bezopasnost-internet-platezhey/";
-    private static final Logger logger = LoggerFactory.getLogger(MtsHomePageTest.class);
+    private static final Logger logger = LoggerFactory.getLogger(HomePageTest.class);
 
     @Test
     @DisplayName("Проверка названия блока 'Онлайн пополнение без комиссии'")
     public void shouldDisplayCorrectBlockTitle() {
-        assertThat(mtsHomePage.checkBlockTitleDisplayed())
+        assertThat(homePage.checkBlockTitleDisplayed())
                 .as("Заголовок блока не отображается или не соответствует ожидаемому значению.")
                 .isEqualTo("Онлайн пополнение\nбез комиссии");
         logger.info("Тест \"Проверка названия блока 'Онлайн пополнение без комиссии'\" - выполнен");
@@ -31,20 +31,20 @@ public class MtsHomePageTest extends TestsConfig {
     public void shouldDisplayAllPaymentLogos() {
         assertAll("Проверка отображения, наличия и кол-ва логотипов",
                 () -> {
-                    assertThat(mtsHomePage.checkPaymentLogosDisplayed())
+                    assertThat(homePage.checkPaymentLogosDisplayed())
                             .as("Не все логотипы платежных систем отображаются")
                             .isTrue();
                     logger.info("Тест \"Проверка наличия логотипов платежных систем\" - выполнен");
                 },
                 () -> {
-                    assertThat(mtsHomePage.checkSizeLogos())
+                    assertThat(homePage.checkSizeLogos())
                             .as("Неверное кол-во логотипов в окне 'Онлайн пополнение\n" +
                                     "без комиссии'")
                             .isEqualTo(5);
                     logger.info("Тест \"Проверка кол-ва логотипов платежных систем\" - выполнен");
                 },
                 () -> {
-                    assertThat(mtsHomePage.checkListLogos())
+                    assertThat(homePage.checkListLogos())
                             .as("Не все ожидаемые логотипы есть в списке\"")
                             .containsAll(ListExpectedLogos());
                     logger.info("Тест \"Проверка наличия логотипов\" - выполнен");
@@ -58,13 +58,13 @@ public class MtsHomePageTest extends TestsConfig {
 
         assertAll("Проверка ссылки и заголовка",
                 () -> {
-                    assertThat(mtsHomePage.clickMoreInfoLink())
+                    assertThat(homePage.clickMoreInfoLink())
                             .as("Ссылка 'Подробнее о сервисе' не работает.")
                             .isEqualTo(EXPECTED_LINK);
                     logger.info("Тест \"Проверка работы ссылки 'Подробнее о сервисе'\" - выполнен");
                 },
                 () -> {
-                    assertThat(mtsHomePage.paymentCardHeader.getText())
+                    assertThat(homePage.paymentCardHeader.getText())
                             .as("Заголовок не соответствует ожидаемому")
                             .isEqualTo("Оплата банковской картой");
                     logger.info("Тест \"Проверка заголовка на странице 'Подробнее о сервисе'\" - выполнен");
@@ -79,7 +79,7 @@ public class MtsHomePageTest extends TestsConfig {
     })
     @DisplayName("Заполнение формы и проверка кнопки 'Продолжить'")
     public void shouldSubmitFormAndDisplayIframe(String phoneNumber, String amount, String email) {
-        assertThat(mtsHomePage.fillFormAndSubmit(phoneNumber, amount, email))
+        assertThat(homePage.fillFormAndSubmit(phoneNumber, amount, email))
                 .as("Фрейм не появился. Вероятно вы ввели некорректные" +
                         " данные в блок 'Онлайн пополнение без комиссии'")
                         .isTrue();
