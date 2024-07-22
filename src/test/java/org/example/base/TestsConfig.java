@@ -5,6 +5,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 public abstract class TestsConfig {
     protected static WebDriver driver;
@@ -18,7 +19,8 @@ public abstract class TestsConfig {
     }
 
     private static void initializeDriver() {
-        driver = new ChromeDriver();
+        driver = new ChromeDriver
+                (new ChromeOptions().addArguments("--headless"));
         driver.manage().window().maximize();
     }
 
