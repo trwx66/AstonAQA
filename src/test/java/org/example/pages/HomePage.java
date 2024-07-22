@@ -1,5 +1,6 @@
 package org.example.pages;
 
+
 import org.junit.jupiter.params.provider.Arguments;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -87,14 +88,8 @@ public class HomePage {
         clickElement(acceptCookiesButton);
     }
 
-    public void inputDataAndSwitchFrame(String phoneNumber, String amount, String email) {
-        if (fillFormAndSubmit(phoneNumber, amount, email)) {
-            switchToIframeAndAwait(iframe, iFrameSum);
-        }
-    }
-
-    public String getIframeText(String phoneNumber, String amount, String email, WebElement element) {
-        inputDataAndSwitchFrame(phoneNumber, amount, email);
+    public String getIframeText(WebElement element) {
+        defaultLoginSwitchIframe();
         return getTextWhenVisible(element);
     }
 
@@ -150,10 +145,6 @@ public class HomePage {
         return wait.until(ExpectedConditions.visibilityOf(element));
     }
 
-    private void switchToIframeAndAwait(WebElement iframe, WebElement elementToWaitFor) {
-        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(iframe));
-        waitUntilVisible(elementToWaitFor);
-    }
 
     private void waitVisibilityOfElements(List<WebElement> element) {
         wait.until(ExpectedConditions.visibilityOfAllElements(element));
@@ -177,35 +168,35 @@ public class HomePage {
 
     public Stream<Arguments> getPlaceholderData() {
         return Stream.of(
-                arguments(phonePlaceholderCom, "Номер телефона"),
-                arguments(amountPlaceholderCom, "Сумма"),
-                arguments(emailPlaceholderCom, "E-mail для отправки чека"),
-                arguments(phonePlaceholderInternet, "Номер абонента"),
-                arguments(amountPlaceholderInternet, "Сумма"),
-                arguments(emailPlaceholderInternet, "E-mail для отправки чека"),
-                arguments(accNumPlaceholderIns, "Номер счета на 44"),
-                arguments(amountPlaceholderIns, "Сумма"),
-                arguments(emailPlaceholderIns, "E-mail для отправки чека"),
-                arguments(accNumPlaceholderDebt, "Номер счета на 2073"),
-                arguments(amountPlaceholderDebt, "Сумма"),
-                arguments(emailPlaceholderDebt, "E-mail для отправки чека")
+                arguments("Услуги вязи (Номер телефона)", getPlaceholderText(phonePlaceholderCom), "Номер телефона"),
+                arguments("Услуги вязи (Сумма)", getPlaceholderText(amountPlaceholderCom), "Сумма"),
+                arguments("Услуги вязи (E-mail для отправки чека)", getPlaceholderText(emailPlaceholderCom), "E-mail для отправки чека"),
+                arguments("Домашний интернет (Номер абонента)", getPlaceholderText(phonePlaceholderInternet), "Номер абонента"),
+                arguments("Домашний интернет (Сумма)", getPlaceholderText(amountPlaceholderInternet), "Сумма"),
+                arguments("Домашний интернет (E-mail для отправки чека)", getPlaceholderText(emailPlaceholderInternet), "E-mail для отправки чека"),
+                arguments("Рассрочка (Номер счета на 44)", getPlaceholderText(accNumPlaceholderIns), "Номер счета на 44"),
+                arguments("Рассрочка (Сумма)", getPlaceholderText(amountPlaceholderIns), "Сумма"),
+                arguments("Рассрочка (E-mail для отправки чека)", getPlaceholderText(emailPlaceholderIns), "E-mail для отправки чека"),
+                arguments("Задолженность (Номер счета на 2073)", getPlaceholderText(accNumPlaceholderDebt), "Номер счета на 2073"),
+                arguments("Задолженность (Сумма)", getPlaceholderText(amountPlaceholderDebt), "Сумма"),
+                arguments("Задолженность (E-mail для отправки чека)", getPlaceholderText(emailPlaceholderDebt), "E-mail для отправки чека")
         );
     }
 
     public Stream<Arguments> getIframeLabel() {
         return Stream.of(
-                arguments(iFrameLabelCardNum, "Номер карты"),
-                arguments(iFrameLabelPeriod, "Срок действия"),
-                arguments(iFrameLabelCvc, "CVC"),
-                arguments(iFrameLabelName, "Имя держателя (как на карте)")
+                arguments(getIframeText(iFrameLabelCardNum), "Номер карты"),
+                arguments(getIframeText(iFrameLabelPeriod), "Срок действия"),
+                arguments(getIframeText(iFrameLabelCvc), "CVC"),
+                arguments(getIframeText(iFrameLabelName), "Имя держателя (как на карте)")
         );
     }
 
     public Stream<Arguments> getIframeFormData() {
         return Stream.of(
-                arguments("297777777", "499", "test@example.com", iFrameSum, "499.00 BYN", "\"label суммы\""),
-                arguments("297777777", "499", "test@example.com", iFramePhoneNumber, "Оплата: Услуги связи Номер:375297777777", "\"label информации об оплате\""),
-                arguments("297777777", "499", "test@example.com", iFrameButtonSum, "Оплатить 499.00 BYN", "\"кнопка подтверждения оплаты\"")
+                arguments(getIframeText(iFrameSum), "499.00 BYN", "\"label суммы\""),
+                arguments(getIframeText(iFramePhoneNumber), "Оплата: Услуги связи Номер:375297777777", "\"label информации об оплате\""),
+                arguments(getIframeText(iFrameButtonSum), "Оплатить 499.00 BYN", "\"кнопка подтверждения оплаты\"")
         );
     }
 }
