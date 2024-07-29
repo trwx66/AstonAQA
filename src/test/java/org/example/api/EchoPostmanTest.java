@@ -3,7 +3,6 @@ package org.example.api;
 import org.example.api.spec.Specifications;
 import org.example.echopostman.get.EchoResp;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
@@ -14,11 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 public class EchoPostmanTest {
     private final String URL = "https://postman-echo.com";
 
-    @BeforeEach
-    void setup() {
-        Specifications.installSpecification(Specifications.requestSpec(URL), Specifications.responseSpecOk200());
-    }
-
     @AfterEach
     void tearDown() {
         System.out.println("******************************************");
@@ -26,6 +20,7 @@ public class EchoPostmanTest {
 
     @Test
     public void checkGetTest() {
+        Specifications.installSpecification(Specifications.requestSpec(URL), Specifications.responseSpecOk200());
         EchoResp response = given()
                 .when()
                 .get("/get?foo1=bar1&foo2=bar2")
@@ -44,9 +39,10 @@ public class EchoPostmanTest {
 
     @Test
     public void checkPostRawTextTest() {
-        String requestBody = "{\"test\":\"value\"}";
+        Specifications.installSpecification(Specifications.requestSpec(URL), Specifications.responseSpecOk200());
+        String rawText = "This is expected to be sent back as part of response body.";
         EchoResp response = given()
-                .body(requestBody)
+                .body(rawText)
                 .when()
                 .post("/post")
                 .then().log().all()
@@ -56,7 +52,85 @@ public class EchoPostmanTest {
         checkHeaders(response, URL.concat("/post"));
 
         assertAll("Проверка данных в теле",
-                () -> assertThat(response.getData().getTest(), equalTo("value"))
+                () -> assertThat(response.getData(), equalTo(rawText))
+        );
+    }
+
+    @Test
+    public void checkPostFormDataTest() {
+        Specifications.installSpecification(Specifications.urlEncodedRequestSpec(URL), Specifications.responseSpecOk200());
+
+        EchoResp response = given()
+                .formParams("foo1", "bar1")
+                .formParams("foo2", "bar2")
+                .when()
+                .post("/post")
+                .then().log().all()
+                .extract()
+                .as(EchoResp.class);
+
+        checkHeaders(response, URL.concat("/post"));
+
+        assertAll("Проверка данных в теле",
+                () -> assertThat(response.getForm().getFoo1(), equalTo("bar1")),
+                () -> assertThat(response.getForm().getFoo2(), equalTo("bar2"))
+        );
+    }
+
+    @Test
+    public void checkPutRequestTest() {
+        Specifications.installSpecification(Specifications.textPlainRequestSpec(URL), Specifications.responseSpecOk200());
+        String rawText = "This is expected to be sent back as part of response body.";
+        EchoResp response = given()
+                .body(rawText)
+                .when()
+                .put("/put")
+                .then().log().all()
+                .extract()
+                .as(EchoResp.class);
+
+        checkHeaders(response, URL.concat("/put"));
+
+        assertAll("Проверка данных в теле",
+                () -> assertThat(response.getData(), equalTo(rawText))
+        );
+    }
+
+    @Test
+    public void checkPatchRequestTest() {
+        Specifications.installSpecification(Specifications.textPlainRequestSpec(URL), Specifications.responseSpecOk200());
+        String rawText = "This is expected to be sent back as part of response body.";
+        EchoResp response = given()
+                .body(rawText)
+                .when()
+                .patch("/patch")
+                .then().log().all()
+                .extract()
+                .as(EchoResp.class);
+
+        checkHeaders(response, URL.concat("/patch"));
+
+        assertAll("Проверка данных в теле",
+                () -> assertThat(response.getData(), equalTo(rawText))
+        );
+    }
+
+    @Test
+    public void checkDeleteRequestTest() {
+        Specifications.installSpecification(Specifications.textPlainRequestSpec(URL), Specifications.responseSpecOk200());
+        String rawText = "This is expected to be sent back as part of response body.";
+        EchoResp response = given()
+                .body(rawText)
+                .when()
+                .delete("/delete")
+                .then().log().all()
+                .extract()
+                .as(EchoResp.class);
+
+        checkHeaders(response, URL.concat("/delete"));
+
+        assertAll("Проверка данных в теле",
+                () -> assertThat(response.getData(), equalTo(rawText))
         );
     }
 

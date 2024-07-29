@@ -10,7 +10,8 @@ import java.util.stream.Stream;
 public class EchoResp {
     private Args args;
     private Headers headers;
-    private Data data;
+    private String data;
+    private Form form;
     private String url;
 
     public String getUrl() {
@@ -25,8 +26,12 @@ public class EchoResp {
         return headers;
     }
 
-    public Data getData() {
+    public String getData() {
         return data;
+    }
+
+    public Form getForm() {
+        return form;
     }
 
     public boolean allArgsNotNull() {
@@ -116,11 +121,16 @@ public class EchoResp {
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static class Data {
-        private String test;
+    public static class Form {
+        private String foo1;
+        private String foo2;
 
-        public String getTest() {
-            return test;
+        public String getFoo1() {
+            return foo1;
+        }
+
+        public String getFoo2() {
+            return foo2;
         }
     }
 }

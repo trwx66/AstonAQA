@@ -7,7 +7,6 @@ import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 
-
 public class Specifications {
     public static RequestSpecification requestSpec(String url) {
         return new RequestSpecBuilder()
@@ -16,11 +15,24 @@ public class Specifications {
                 .build();
     }
 
+    public static RequestSpecification urlEncodedRequestSpec(String url) {
+        return new RequestSpecBuilder()
+                .setBaseUri(url)
+                .setContentType("application/x-www-form-urlencoded; charset=UTF-8")
+                .build();
+    }
+
+    public static RequestSpecification textPlainRequestSpec(String url) {
+        return new RequestSpecBuilder()
+                .setBaseUri(url)
+                .setContentType(ContentType.TEXT)
+                .build();
+    }
+
     public static ResponseSpecification responseSpecOk200() {
         return new ResponseSpecBuilder()
                 .expectStatusCode(200)
                 .build();
-
     }
 
     public static void installSpecification(RequestSpecification request, ResponseSpecification response) {
