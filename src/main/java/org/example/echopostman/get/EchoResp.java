@@ -2,10 +2,11 @@ package org.example.echopostman.get;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
+import lombok.Getter;
 import java.util.Objects;
 import java.util.stream.Stream;
 
+@Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class EchoResp {
     private Args args;
@@ -13,26 +14,6 @@ public class EchoResp {
     private String data;
     private Form form;
     private String url;
-
-    public String getUrl() {
-        return url;
-    }
-
-    public Args getArgs() {
-        return args;
-    }
-
-    public Headers getHeaders() {
-        return headers;
-    }
-
-    public String getData() {
-        return data;
-    }
-
-    public Form getForm() {
-        return form;
-    }
 
     public boolean allArgsNotNull() {
         return args != null && args.allFieldsNotNull();
@@ -43,6 +24,7 @@ public class EchoResp {
                 .allMatch(Objects::nonNull) && headers.allFieldsNotNull();
     }
 
+    @Getter
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class Args {
         private String foo1;
@@ -51,20 +33,13 @@ public class EchoResp {
         public Args() {
         }
 
-        public String getFoo1() {
-            return foo1;
-        }
-
-        public String getFoo2() {
-            return foo2;
-        }
-
         public boolean allFieldsNotNull() {
             return Stream.of(foo1, foo2)
                     .allMatch(Objects::nonNull);
         }
     }
 
+    @Getter
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class Headers {
         @JsonProperty("x-request-start")
@@ -82,55 +57,16 @@ public class EchoResp {
         private String host;
         private String accept;
 
-        public String getAcceptEncoding() {
-            return acceptEncoding;
-        }
-
-        public String getHost() {
-            return host;
-        }
-
-        public String getXRequestStart() {
-            return xRequestStart;
-        }
-
-        public String getXForwardedProto() {
-            return xForwardedProto;
-        }
-
-        public String getXForwardedPort() {
-            return xForwardedPort;
-        }
-
-        public String getXAmznTraceId() {
-            return xAmznTraceId;
-        }
-
-        public String getUserAgent() {
-            return userAgent;
-        }
-
-        public String getAccept() {
-            return accept;
-        }
-
         public boolean allFieldsNotNull() {
             return Stream.of(xRequestStart, xForwardedProto, xForwardedPort, xAmznTraceId, userAgent, host, accept)
                     .allMatch(Objects::nonNull);
         }
     }
 
+    @Getter
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class Form {
         private String foo1;
         private String foo2;
-
-        public String getFoo1() {
-            return foo1;
-        }
-
-        public String getFoo2() {
-            return foo2;
-        }
     }
 }
