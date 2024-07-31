@@ -1,6 +1,9 @@
 package org.example.tests;
 
-import org.example.base.TestsConfig;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
+import org.example.base.BaseTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -17,7 +20,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class HomePageTest extends TestsConfig {
+@Epic("Тесты для \"Онлайн пополнение без комиссии\" на сайте mts.by")
+public class HomePageTest extends BaseTest {
 
     private static final Logger logger = LoggerFactory.getLogger(HomePageTest.class);
 
@@ -36,6 +40,8 @@ public class HomePageTest extends TestsConfig {
     @ParameterizedTest
     @MethodSource("placeholderDataProvider")
     @DisplayName("Проверка плейсхолдеров")
+    @Feature("Placeholders")
+    @Story("Проверка соответствия плейсхолдеров ожидаемым значениям")
     public void testPlaceholders(String field, String actualText, String expectedText) {
         assertThat(actualText)
                 .as("Несоответствие в плейсхолдере: " + actualText)
@@ -49,17 +55,21 @@ public class HomePageTest extends TestsConfig {
             "298888888, 250, example@test.com",
     })
     @DisplayName("Заполнение формы и проверка кнопки 'Продолжить'")
+    @Feature("Form Submission")
+    @Story("Проверка отправки формы с различными данными")
     public void testFormSubmission(String phoneNumber, String amount, String email) {
         assertThat(homePage.fillFormAndSubmit(phoneNumber, amount, email))
                 .as("Фрейм не появился. Возможно вы ввели некорректные данные в блок 'Онлайн пополнение без комиссии'")
                 .isTrue();
-        logger.info("\nТест 'Заполнение формы и проверка кнопки «Продолжить»' - выполнен. Данные: phoneNumber='{}', amount='{}', email='{}'",
+        logger.info("\nТест 'Заполнение формы и проверка кнопки «Продолжить» - выполнен. Данные: phoneNumber='{}', amount='{}', email='{}'",
                 phoneNumber, amount, email);
     }
 
     @ParameterizedTest
     @MethodSource("iFrameFormData")
     @DisplayName("Проверка инф-ии в iframe сумма\\телефон\\инф на кнопке")
+    @Feature("iFrame Verification")
+    @Story("Проверка отображаемой информации в iframe")
     public void testIframeData(String actualText, String expected, String comment) {
         assertThat(actualText)
                 .as("Ошибка: Ожидалось значение '" + expected + "', но было получено '" + actualText + "'")
@@ -71,6 +81,8 @@ public class HomePageTest extends TestsConfig {
     @ParameterizedTest
     @MethodSource("iframeLabel")
     @DisplayName("Проверка label iframe")
+    @Feature("iFrame Label Verification")
+    @Story("Проверка правильности label в iframe")
     public void testLabelIframe(String actualText, String expectedText) {
         assertThat(actualText)
                 .as("Несоответствие label фрейма: " + actualText)
@@ -81,6 +93,8 @@ public class HomePageTest extends TestsConfig {
 
     @Test
     @DisplayName("Проверка наличия и кол-ва логотипов платежных систем")
+    @Feature("Payment Logos")
+    @Story("Проверка наличия и количества логотипов платежных систем в iframe")
     public void shouldDisplayAllPaymentLogos() {
         assertAll("\nПроверка отображения, наличия и кол-ва платёжных систем iframe",
                 () -> {
